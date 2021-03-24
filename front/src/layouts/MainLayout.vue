@@ -1,5 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
+    <!--NAVBAR-->
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -11,97 +12,76 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+        <q-toolbar-title> Quasar App </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
-
+    <!--NAVBAR LEFT CONTENT-->
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
       bordered
       content-class="bg-grey-1"
+      class="col-md-12"
     >
+      <!--ITEMS-->
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <MenuLink v-for="link in menuLinks" :key="link.title" v-bind="link" />
       </q-list>
+
+      <!--LOGOUT BUTTON-->
+      <q-btn class="logout" text-color="grey" flat rounded>
+        <q-icon name="fas fa-sign-out-alt"></q-icon>
+      </q-btn>
     </q-drawer>
 
-    <q-page-container>
-      <router-view />
-    </q-page-container>
+      <q-page-container class="row">
+        <router-view />
+      </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
+import MenuLink from 'components/MenuLink.vue'
 const linksData = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Inicio',
+    icon: 'fas fa-home',
+    link: '/'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'Eventos',
+    icon: 'fas fa-calendar-day',
+    link: '/events'
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    title: 'Usuarios',
+    icon: 'fas fa-user-friends',
+    link: '/users'
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    title: 'Informe',
+    icon: 'far fa-clipboard',
+    link: '/reports'
   }
 ]
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink },
+  components: { MenuLink },
   data () {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData
+      menuLinks: linksData
     }
   }
 }
 </script>
+
+<style>
+.logout:hover {
+  background-color: #404040;
+  color: aqua;
+}
+</style>
