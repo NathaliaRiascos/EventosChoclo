@@ -1,22 +1,5 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <!--NAVBAR-->
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
-
-        <q-toolbar-title> Quasar App </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
     <!--NAVBAR LEFT CONTENT-->
     <q-drawer
       v-model="leftDrawerOpen"
@@ -25,15 +8,19 @@
       content-class="bg-grey-1"
       class="col-md-12"
     >
-      <!--ITEMS-->
       <q-list>
+        <!--SEARCH BAR-->
+        <q-item>
+          <q-input text-color="grey" dark dense borderless v-model="search_content" class="q-ml-xs search_input full-width" placeholder="Buscar...">
+            <template v-slot:prepend>
+                <q-icon v-if="search_content === ''" name="fas fa-search" />
+                <q-icon v-else name="fas fa-times" class="cursor-pointer" @click="search_content = ''" />
+            </template>
+          </q-input>
+        </q-item>
+        <!--ITEMS-->
         <MenuLink v-for="link in menuLinks" :key="link.title" v-bind="link" />
       </q-list>
-
-      <!--LOGOUT BUTTON-->
-      <q-btn class="logout" text-color="grey" flat rounded>
-        <q-icon name="fas fa-sign-out-alt"></q-icon>
-      </q-btn>
     </q-drawer>
 
       <q-page-container class="row">
@@ -64,6 +51,11 @@ const linksData = [
     title: 'Informe',
     icon: 'far fa-clipboard',
     link: '/reports'
+  },
+  {
+    title: 'Salir',
+    icon: 'fas fa-sign-out-alt',
+    link: '/logout'
   }
 ]
 
@@ -80,8 +72,11 @@ export default {
 </script>
 
 <style>
-.logout:hover {
-  background-color: #404040;
-  color: aqua;
+.search_input{
+  padding-left: 10px;
+  background-color: #505057;
+  font-size: 18px;
+  font-weight: 300;
+  border-radius: 5px;
 }
 </style>
