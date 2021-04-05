@@ -5,13 +5,13 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-1"
+      content-class="navbar-color"
       class="col-md-12"
     >
       <q-list>
         <!--SEARCH BAR-->
         <q-item>
-          <q-input text-color="grey" dark dense borderless v-model="search_content" class="q-ml-xs search_input full-width" placeholder="Buscar...">
+          <q-input dense borderless v-model="search_content" class="q-ml-xs search-input full-width" placeholder="Buscar...">
             <template v-slot:prepend>
                 <q-icon v-if="search_content === ''" name="fas fa-search" />
                 <q-icon v-else name="fas fa-times" class="cursor-pointer" @click="search_content = ''" />
@@ -72,9 +72,12 @@ export default {
 </script>
 
 <style>
-.search_input{
+.navbar-color {
+  background-color: #52575D;
+}
+.search-input{
   padding-left: 10px;
-  background-color: #505057;
+  background-color: #c4c4c4;
   font-size: 18px;
   font-weight: 300;
   border-radius: 5px;

@@ -4,18 +4,18 @@
     tag="a"
     target="_blank"
     :href="link"
-    class="item_container"
+    class="item-container q-pt-lg q-pb-lg"
   >
     <!--ICON-->
     <q-item-section
       v-if="icon"
       avatar
-      class="item_content"
+      class="item-content"
     >
       <q-icon :name="icon" />
     </q-item-section>
     <!--TITLE -->
-    <q-item-section class="item_content">
+    <q-item-section class="item-content">
       <q-item-label>{{ title }}</q-item-label>
     </q-item-section>
   </q-item>
@@ -46,21 +46,21 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-.item_content {
+.item-content {
   font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 18px;
-  color: #404040;
+  color: #FAFAFA;
 }
 
-.item_container:hover {
-  background: #404040;
+.item-container:hover {
+  background: #FDDB3A;
   border-radius: 10px;
 }
 
-.item_container:hover .item_content {
+.item-container:hover .item-content {
   font-weight: 700;
-  color: #e5e5e5;
+  color: #41444B;
 }
 
 </style>
