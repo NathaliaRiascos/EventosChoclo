@@ -21,20 +21,18 @@
           v-bind="show"
         />
       </div>
-    </div>
-
-    <div class="row justify-end q-mt-lg">
-      <q-btn class="add-event q-mr-xl" label="Crear evento"></q-btn>
+      <EditShow />
     </div>
   </div>
 </template>
 
 <script>
 import ShowTableInstance from './ShowTableInstance'
+import EditShow from './EditShow'
 
 export default {
   name: 'ShowAdmTable',
-  components: { ShowTableInstance },
+  components: { ShowTableInstance, EditShow },
   data () {
     return {
       shows: [
@@ -72,10 +70,13 @@ export default {
 }
 
 .add-show {
+  width: 154px;
   background-color: #f2f2f2;
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
-  border-radius: 10px;
+  font-size: 16px;
+  text-transform: capitalize;
+  border-radius: 20px;
 }
 
 .tb-title-container {
@@ -95,12 +96,5 @@ export default {
   color: #404040;
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
-}
-
-.add-event {
-  background-color: #fddb3a;
-  border-radius: 10px;
-  font-family: "Quicksand", sans-serif;
-  color: #000000;
 }
 </style>

@@ -1,12 +1,18 @@
 <template>
   <q-layout view="lHh Lpr lFf">
+    <q-header elevated class="navbar-color">
+        <q-toolbar>
+          <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen" round dense icon="fas fa-bars" />
+          <q-toolbar-title>Eventos choclo</q-toolbar-title>
+        </q-toolbar>
+      </q-header>
     <!--NAVBAR LEFT CONTENT-->
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
       bordered
       content-class="navbar-color"
-      class="col-md-12"
+      class="col-md-8"
     >
       <q-list>
         <!--SEARCH BAR-->
