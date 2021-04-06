@@ -11,15 +11,15 @@
       <q-list>
         <!--SEARCH BAR-->
         <q-item>
-          <q-input dense borderless v-model="search_content" class="q-ml-xs search-input full-width" placeholder="Buscar...">
+          <q-input dense borderless v-model="searchContent" class="q-ml-xs search-input full-width" placeholder="Buscar...">
             <template v-slot:prepend>
-                <q-icon v-if="search_content === ''" name="fas fa-search" />
-                <q-icon v-else name="fas fa-times" class="cursor-pointer" @click="search_content = ''" />
+                <q-icon v-if="searchContent === ''" name="fas fa-search" />
+                <q-icon v-else name="fas fa-times" class="cursor-pointer" @click="searchContent = ''" />
             </template>
           </q-input>
         </q-item>
         <!--ITEMS-->
-        <MenuLink v-for="link in menuLinks" :key="link.title" v-bind="link" />
+        <NavLink v-for="link in navLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import MenuLink from 'components/MenuLink.vue'
+import NavLink from 'components/NavLink.vue'
 const linksData = [
   {
     title: 'Inicio',
@@ -61,11 +61,12 @@ const linksData = [
 
 export default {
   name: 'MainLayout',
-  components: { MenuLink },
+  components: { NavLink },
   data () {
     return {
       leftDrawerOpen: false,
-      menuLinks: linksData
+      navLinks: linksData,
+      searchContent: ''
     }
   }
 }
@@ -77,7 +78,8 @@ export default {
 }
 .search-input{
   padding-left: 10px;
-  background-color: #c4c4c4;
+  background-color: #d8d8d8;
+  font-family: 'Quicksand', sans-serif;
   font-size: 18px;
   font-weight: 300;
   border-radius: 5px;
