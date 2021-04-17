@@ -37,9 +37,9 @@ export default {
 
 <style>
 .instance-body {
-    background-color: #f2f2f2;
-    border-top: 1px solid #ffffff;
-    padding: 10px 0;
+  background-color: #f2f2f2;
+  border-top: 1px solid #ffffff;
+  padding: 10px 0;
 }
 
 .instance-font {
@@ -50,6 +50,6 @@ export default {
 }
 
 .instance-icons {
-    font-size: 16px;
+  font-size: 16px;
 }
 </style>
