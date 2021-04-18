@@ -13,7 +13,7 @@
         <div class="col-3 tb-title">Asientos</div>
       </div>
 
-      <div class="col-11 q-mt-lg">
+      <div class="tables-container col-11 q-mt-lg">
         <ShowTableInstance
           class="col-11"
           v-for="show in shows"
@@ -21,21 +21,73 @@
           v-bind="show"
         />
       </div>
-      <EditShow />
     </div>
   </div>
 </template>
 
 <script>
 import ShowTableInstance from './ShowTableInstance'
-import EditShow from './EditShow'
 
 export default {
   name: 'ShowAdmTable',
-  components: { ShowTableInstance, EditShow },
+  components: { ShowTableInstance },
   data () {
     return {
       shows: [
+        {
+          number: 23,
+          hour: '4:00',
+          place: 'Cine Colombia',
+          seats: 29
+        },
+        {
+          number: 25,
+          hour: '7:00',
+          place: 'Teatro de Cali',
+          seats: 5000
+        },
+        {
+          number: 30,
+          hour: '19:00',
+          place: 'Estadio nacional',
+          seats: 50000
+        },
+        {
+          number: 23,
+          hour: '4:00',
+          place: 'Cine Colombia',
+          seats: 29
+        },
+        {
+          number: 25,
+          hour: '7:00',
+          place: 'Teatro de Cali',
+          seats: 5000
+        },
+        {
+          number: 30,
+          hour: '19:00',
+          place: 'Estadio nacional',
+          seats: 50000
+        },
+        {
+          number: 23,
+          hour: '4:00',
+          place: 'Cine Colombia',
+          seats: 29
+        },
+        {
+          number: 25,
+          hour: '7:00',
+          place: 'Teatro de Cali',
+          seats: 5000
+        },
+        {
+          number: 30,
+          hour: '19:00',
+          place: 'Estadio nacional',
+          seats: 50000
+        },
         {
           number: 23,
           hour: '4:00',
@@ -96,5 +148,10 @@ export default {
   color: #404040;
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
+}
+
+.tables-container {
+  max-height: 220px;
+  overflow-y: scroll;
 }
 </style>
