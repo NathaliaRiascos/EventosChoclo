@@ -14,12 +14,13 @@
           <q-file
             class="custom-file-input justify-center items-center col-4"
             borderless
+            v-model="event.event_img"
           ></q-file>
         </div>
         <q-input
           label="Nombre"
           type="text"
-          v-model="eventName"
+          v-model="event.event_name"
           class="event-input self-end col-md-12 col-xs-10 q-mt-md"
           borderless
         ></q-input>
@@ -28,7 +29,7 @@
       <div class="row justify-around col-md-5 col-xs-11 conditional-padd">
         <q-input
           type="date"
-          v-model="eventDate"
+          v-model="event.event_date"
           class="event-input self-start col-md-12 col-xs-10"
           borderless
         ></q-input>
@@ -36,7 +37,7 @@
         <q-input
           label="Precio"
           type="number"
-          v-model="eventPrice"
+          v-model="event.event_price"
           class="event-input self-center col-md-12 col-xs-10 q-mt-md"
           borderless
         ></q-input>
@@ -44,7 +45,7 @@
         <textarea
           placeholder="Descripción"
           rows="3"
-          v-model="eventDescription"
+          v-model="event.event_description"
           class="event-input text-area self-end col-md-12 col-xs-10 q-mt-md"
           borderless
         ></textarea>
@@ -57,23 +58,37 @@
 </template>
 
 <script>
+
+import EventService from '../services/EventService'
+import { functions } from '../functions.js'
+
 export default {
   name: 'EventAdmCreator',
+  mixins: [functions],
   data () {
     return {
-      eventName: '',
-      eventImgUrl: '',
-      eventDate: '',
-      eventPrice: '',
-      eventDescription: ''
+      event: {
+        event_name: '',
+        eventImgUrl: '',
+        event_date: '',
+        event_price: '',
+        event_description: ''
+      }
     }
   },
   methods: {
-    event_form () {
-      console.log('Se sumiteo el formulario')
+    async event_form () {
+      try {
+        const data = this.event
+        data.token = localStorage.getItem('token')
+        await EventService.store(this.event)
+      } catch (error) {
+        this.alert('negative', error.response.data.error)
+      }
     }
   }
 }
+
 </script>
 
 <style>
