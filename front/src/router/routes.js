@@ -22,6 +22,13 @@ const routes = [
       { path: '/admin', component: () => import('pages/AdminHome.vue') }
     ]
   },
+  {
+    name: 'logout',
+    path: '/logout',
+    meta: {
+      title: 'Logout', requireSession: true
+    }
+  },
 
   // Always leave this as last one,
   // but you can also remove it

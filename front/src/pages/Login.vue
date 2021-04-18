@@ -207,22 +207,25 @@ export default {
           user_password: this.user.user_password
         }
         const request = await UserService.login(data)
+        console.log('entro')
+        this.goTo('/')
         if (request.status >= 200 & request.status < 300) {
+          console.log('entro')
           localStorage.setItem('token', request.data.data.token)
           localStorage.setItem('user', JSON.stringify(request.data.data.user))
           this.goTo('/')
         }
       } catch (error) {
-        this.alert('negative', error.response.data.error)
+        // this.alert('negative', error.response.data.error)
       }
     },
     async register () {
       try {
-        this.activateLoading()
+        // this.activateLoading()
         if (this.user.user_password === this.user.user_passwordConfirm) {
           const request = await UserService.register(this.user)
           if (request.status === 200) {
-            this.alert('positive', 'Usuario creado correctamente')
+            // this.alert('positive', 'Usuario creado correctamente')
             this.tab = 'sign_in'
           }
         } else {
@@ -230,9 +233,9 @@ export default {
           this.alert('negative', 'Las claves no coinciden')
         }
       } catch (error) {
-        this.alert('negative', error.response.data.error)
+        // this.alert('negative', error.response.data.error)
       }
-      this.disableLoading()
+      // this.disableLoading()
     }
   }
 }
