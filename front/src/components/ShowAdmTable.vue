@@ -53,55 +53,55 @@ export default {
           seats: 50000
         },
         {
-          number: 23,
+          number: 15,
           hour: '4:00',
           place: 'Cine Colombia',
           seats: 29
         },
         {
-          number: 25,
+          number: 52,
           hour: '7:00',
           place: 'Teatro de Cali',
           seats: 5000
         },
         {
-          number: 30,
+          number: 78,
           hour: '19:00',
           place: 'Estadio nacional',
           seats: 50000
         },
         {
-          number: 23,
+          number: 65,
           hour: '4:00',
           place: 'Cine Colombia',
           seats: 29
         },
         {
-          number: 25,
+          number: 89,
           hour: '7:00',
           place: 'Teatro de Cali',
           seats: 5000
         },
         {
-          number: 30,
+          number: 899,
           hour: '19:00',
           place: 'Estadio nacional',
           seats: 50000
         },
         {
-          number: 23,
+          number: 985,
           hour: '4:00',
           place: 'Cine Colombia',
           seats: 29
         },
         {
-          number: 25,
+          number: 235,
           hour: '7:00',
           place: 'Teatro de Cali',
           seats: 5000
         },
         {
-          number: 30,
+          number: 893,
           hour: '19:00',
           place: 'Estadio nacional',
           seats: 50000

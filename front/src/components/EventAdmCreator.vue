@@ -81,7 +81,17 @@ export default {
       try {
         const data = this.event
         data.token = localStorage.getItem('token')
-        await EventService.store(this.event)
+        const request = await EventService.store(this.event)
+        if (request.status === 200) {
+          this.alert('positive', 'Evento creado correctamente')
+          this.event = {
+            event_name: '',
+            eventImgUrl: '',
+            event_date: '',
+            event_price: '',
+            event_description: ''
+          }
+        }
       } catch (error) {
         this.alert('negative', error.response.data.error)
       }

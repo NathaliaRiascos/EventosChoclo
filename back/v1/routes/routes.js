@@ -19,4 +19,7 @@ module.exports = function (app) {
 
 	// Events
 	app.post('/v1/event', verifyToken, EventController.store)
+	app.get('/v1/getEvents', EventController.get)
+	app.get('/v1/getEvents-date/:event_date', EventController.getByDate)
+
 }

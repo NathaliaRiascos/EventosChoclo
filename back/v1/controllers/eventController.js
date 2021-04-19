@@ -23,3 +23,33 @@ exports.store = async function(req, res) {
         res.status(400).json({error})
     }
 }
+
+exports.get = async function(req, res) {
+    try{
+        const events = await Event.findAll()
+        res.json({
+            error: null,
+            data: events
+          })
+
+    } catch (error) {
+        res.status(400).json({error})
+    }
+}
+
+exports.getByDate = async function(req, res) {
+    try{
+        const events = await Event.findAll({
+            where: {
+              event_date: req.params.event_date
+            }
+        })
+          res.json({
+            error: null,
+            data: events
+          })
+
+    } catch (error) {
+        res.status(400).json({error})
+    }
+}

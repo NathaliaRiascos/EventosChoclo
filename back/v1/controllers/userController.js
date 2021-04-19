@@ -22,9 +22,7 @@ exports.login = async function(req, res) {
   if (error) return res.status(400).json({ error: error.details[0].message })
   
   const user = await User.findOne({ 
-    where: {
-      user_email: req.body.user_email
-    }
+    c
    });
   if (!user) return res.status(400).json({ error: 'Usuario no encontrado' });
 

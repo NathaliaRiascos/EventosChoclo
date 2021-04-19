@@ -2,9 +2,8 @@
   <div class="row col-10 justify-around tiny-event-container q-my-md">
     <q-img class="col-3 tiny-event-img"></q-img>
     <div class="col-6">
-        <p class="tiny-event-title">{{title}}</p>
-        <p class="tiny-event-text">{{date}}</p>
-        <p class="tiny-event-text">Shows: {{shows}}</p>
+        <p class="tiny-event-title">{{event_name}}</p>
+        <p class="tiny-event-text">{{event_date}}</p>
     </div>
     <div class="row col-2 justify-around items-center">
       <q-icon name="fas fa-pen tiny-event-icon q-pr-sm" style="color: #color: #52575d" />
@@ -17,16 +16,12 @@
 export default {
   name: 'TinyEvent',
   props: {
-    title: {
+    event_name: {
       type: String,
       required: true
     },
-    date: {
+    event_date: {
       type: String,
-      required: true
-    },
-    shows: {
-      type: Number,
       required: true
     }
   }
