@@ -1,13 +1,12 @@
 <template>
-  <div class="row col-10 justify-around tiny-event-container">
+  <div class="row col-10 justify-around tiny-event-container q-my-md">
     <q-img class="col-3 tiny-event-img"></q-img>
     <div class="col-6">
-        <p class="tiny-event-title">{{title}}</p>
-        <p class="tiny-event-text">{{date}}</p>
-        <p class="tiny-event-text">{{shows}}</p>
+        <p class="tiny-event-title">{{event_name}}</p>
+        <p class="tiny-event-text">{{event_date}}</p>
     </div>
     <div class="row col-2 justify-around items-center">
-      <q-icon name="fas fa-pen tiny-event-icon" style="color: #color: #52575d" />
+      <q-icon name="fas fa-pen tiny-event-icon q-pr-sm" style="color: #color: #52575d" />
       <q-icon name="fas fa-trash tiny-event-icon" style="color: #eb4335" />
     </div>
   </div>
@@ -17,16 +16,12 @@
 export default {
   name: 'TinyEvent',
   props: {
-    title: {
+    event_name: {
       type: String,
       required: true
     },
-    date: {
+    event_date: {
       type: String,
-      required: true
-    },
-    shows: {
-      type: Number,
       required: true
     }
   }
@@ -35,7 +30,7 @@ export default {
 
 <style>
 .tiny-event-container {
-    height: 80px !important;
+  height: 80px !important;
 }
 
 .tiny-event-img {
@@ -46,22 +41,23 @@ export default {
 }
 
 .tiny-event-title {
-    margin: 0;
-    padding: 0;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 400;
-    font-size: 18px;
-    color: #41444b;
+  margin: 0;
+  padding: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  color: #41444b;
 }
 
 .tiny-event-text {
-    margin: 0;
-    padding: 0;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    color: #787878;
-    line-height: 20px;
+  margin: 0;
+  padding: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #787878;
+  line-height: 20px;
 }
 
 .tiny-event-icon {
