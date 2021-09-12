@@ -49,6 +49,7 @@ export default {
   font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 18px;
+  border-radius: 10px;
   color: #FAFAFA;
 }
 

@@ -25,7 +25,13 @@
           </q-input>
         </q-item>
         <!--ITEMS-->
-        <NavLink v-for="link in navLinks" :key="link.title" v-bind="link" />
+        <div class="row justify-center">
+          <NavLink
+            class="col-11 q-mt-sm"
+            v-for="link in navLinks"
+            :key="link.title"
+            v-bind="link" />
+        </div>
       </q-list>
     </q-drawer>
 
@@ -82,6 +88,7 @@ export default {
 .navbar-color {
   background-color: #52575D;
 }
+
 .search-input{
   padding-left: 10px;
   background-color: #d8d8d8;

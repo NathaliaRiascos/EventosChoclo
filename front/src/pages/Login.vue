@@ -1,176 +1,189 @@
 <template>
   <q-page>
     <div class="row lg_body q-pt-xl justify-center">
-        <div class="col-md-4 col-sm-9 col-xs-11">
-          <!--RETURN DIV-->
-          <div
-           class="lg_go_back q-mb-md"
-           @click="goTo('/')"
-           >
-            <i class="fas fa-arrow-left"></i>
-            Volver al <b> inicio </b>
-          </div>
+      <div class="col-md-4 col-sm-9 col-xs-11">
+        <!--RETURN DIV-->
+        <div class="lg_go_back q-mb-md" @click="goTo('/')">
+          <i class="fas fa-arrow-left"></i>
+          Volver al <b> inicio </b>
+        </div>
+        <!--TABS-->
+        <q-tabs v-model="tab" class="lg_tab" indicator-color="transparent">
+          <q-tab
+            name="sign_in"
+            class="tablinks tab_left"
+            :class="{ selected: tab == 'sign_in' }">
+            Sign in</q-tab>
+          <q-tab
+            name="sign_up"
+            class="tablinks tab_right"
+            :class="{ selected: tab == 'sign_up' }">
+            Sign Up</q-tab>
+        </q-tabs>
 
-          <!--TABS-->
-          <q-tabs v-model="tab" class="lg_tab" indicator-color="transparent">
-            <q-tab
-              name="sign_in"
-              class="tablinks tab_left"
-              :class="{ selected: tab == 'sign_in' }"
+        <!--CARD CONTENT-->
+        <q-tab-panels class="tab_container" v-model="tab" animated>
+          <!--LOGIN-->
+          <q-tab-panel name="sign_in">
+            <q-form
+              @submit="login()"
+              action="submit"
+              class="col-md-4 col-xs-12 justify-center"
             >
-              Sign in</q-tab
-            >
-            <q-tab
-              name="sign_up"
-              class="tablinks tab_right"
-              :class="{ selected: tab == 'sign_up' }"
-            >
-              Sign Up</q-tab
-            >
-          </q-tabs>
-
-          <!--CARD CONTENT-->
-          <q-tab-panels class="tab_container" v-model="tab" animated>
-            <!--LOGIN-->
-            <q-tab-panel name="sign_in">
-              <q-form
-                @submit="login()"
-                action="submit"
-                class="col-md-4 col-xs-12 justify-center"
+              <!--EMAIL-->
+              <q-input
+                class="lg_input q-mt-md"
+                borderless
+                v-model="user.user_email"
+                label="Email"
+                required
+                :rules="[(val) => !!val || 'Este campo es necesario']"
               >
-                <q-input
-                  class="lg_input q-mt-md"
-                  borderless
-                  v-model="user.user_email"
-                  label="Email"
-                  required
-                  :rules="[(val) => !!val || 'Este campo es necesario']"
+                <template v-slot:prepend>
+                  <q-icon color="grey" name="mail" />
+                </template> </q-input
+              ><br />
+              <!--PASSWORD-->
+              <q-input
+                class="lg_input q-my-md"
+                borderless
+                v-model="user.user_password"
+                label="Clave"
+                :type="isPwd ? 'password' : 'text'"
+                required
+                :rules="[(val) => !!val || 'Este campo es necesario']"
+              >
+                <template v-slot:prepend>
+                  <q-icon color="grey" name="vpn_key" />
+                </template>
+                <template v-slot:append>
+                  <q-icon
+                    color="grey"
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
+              <div class="row justify-end">
+                <q-btn class="lg_btn" flat to="/recovery"
+                  >¿Olvidaste tu contraseña?</q-btn
                 >
-                  <template v-slot:prepend>
-                    <q-icon color="grey" name="mail" />
-                  </template> </q-input
-                ><br />
-                <q-input
-                  class="lg_input q-my-md"
-                  borderless
-                  v-model="user.user_password"
-                  label="Clave"
-                  :type="isPwd ? 'password' : 'text'"
-                  required
-                  :rules="[(val) => !!val || 'Este campo es necesario']"
-                >
-                  <template v-slot:prepend>
-                    <q-icon color="grey" name="vpn_key" />
-                  </template>
-                  <template v-slot:append>
-                    <q-icon
-                      color="grey"
-                      :name="isPwd ? 'visibility_off' : 'visibility'"
-                      @click="isPwd = !isPwd"
-                    />
-                  </template>
-                </q-input>
-                <div class="row justify-end">
-                  <q-btn class="lg_btn" flat to="/recovery">¿Olvidaste tu contraseña?</q-btn>
-                </div>
-                <q-btn
-                  type="submit"
-                  class="lg_btn q-mt-sm full-width"
-                  label="Iniciar sesión"
-                  color="grey"
-                />
-              </q-form>
+              </div>
               <q-btn
                 type="submit"
-                icon="facebook"
                 class="lg_btn q-mt-sm full-width"
-                label="Iniciar con facebook"
-                color="primary"
-                @click="loginWithFacebook"
+                label="Iniciar sesión"
+                color="grey"
               />
-            </q-tab-panel>
-            <!--REGISTER-->
-            <q-tab-panel class="tab_container" name="sign_up">
-              <q-form
-                @submit="register()"
-                action="submit"
-                class="col-md-4 col-xs-12"
+            </q-form>
+            <q-btn
+              type="submit"
+              icon="facebook"
+              class="lg_btn q-mt-sm full-width"
+              label="Iniciar con facebook"
+              color="primary"
+              @click="loginWithFacebook"
+            />
+          </q-tab-panel>
+          <!--REGISTER-->
+          <q-tab-panel class="tab_container" name="sign_up">
+            <q-form
+              @submit="register()"
+              action="submit"
+              class="col-md-4 col-xs-12"
+            >
+              <!--NAME-->
+              <q-input
+                class="lg_input q-mt-md"
+                borderless
+                v-model="user.user_name"
+                label="Nombre"
+                required
+                :rules="[(val) => !!val || 'Este campo es necesario']"
               >
-                <q-input
-                  class="lg_input q-mt-md"
-                  borderless
-                  v-model="user.user_name"
-                  label="Nombre"
-                  required
-                  :rules="[(val) => !!val || 'Este campo es necesario']"
-                >
-                  <template v-slot:prepend>
-                    <q-icon color="grey" name="badge" />
-                  </template> </q-input
-                ><br />
-                <q-input
-                  class="lg_input q-mt-sm"
-                  borderless
-                  type="mail"
-                  v-model="user.user_email"
-                  label="Email"
-                  required
-                  :rules="[(val) => !!val || 'Este campo es necesario']"
-                >
-                  <template v-slot:prepend>
-                    <q-icon color="grey" name="email" />
-                  </template> </q-input
-                ><br />
-                <q-input
-                  class="lg_input q-mt-sm"
-                  borderless
-                  v-model="user.user_password"
-                  label="Clave"
-                  :type="isPwd1 ? 'password' : 'text'"
-                  required
-                  :rules="[(val) => !!val || 'Este campo es necesario']"
-                >
-                  <template v-slot:prepend>
-                    <q-icon color="grey" name="vpn_key" />
-                  </template>
-                  <template v-slot:append>
-                    <q-icon
-                      color="grey"
-                      :name="isPwd1 ? 'visibility_off' : 'visibility'"
-                      @click="isPwd1 = !isPwd1"
-                    />
-                  </template> </q-input
-                ><br />
-                <q-input
-                  class="lg_input q-mt-sm q-mb-lg"
-                  borderless
-                  v-model="user.user_passwordConfirm"
-                  label="Confirmar clave"
-                  :type="isPwd2 ? 'password' : 'text'"
-                  required
-                  :rules="[(val) => !!val || 'Este campo es necesario']"
-                >
-                  <template v-slot:prepend>
-                    <q-icon color="grey" name="vpn_key" />
-                  </template>
-                  <template v-slot:append>
-                    <q-icon
-                      color="grey"
-                      :name="isPwd2 ? 'visibility_off' : 'visibility'"
-                      @click="isPwd2 = !isPwd2"
-                    />
-                  </template>
-                </q-input>
-                <q-btn
-                  type="submit"
-                  class="lg_btn full-width q-mt-sm"
-                  label="Registrarse"
-                  color="grey"
-                />
-              </q-form>
-            </q-tab-panel>
-          </q-tab-panels>
-        </div>
+                <template v-slot:prepend>
+                  <q-icon color="grey" name="badge" />
+                </template> </q-input
+              ><br />
+              <!--ID-->
+              <q-input
+                class="lg_input q-mt-sm"
+                borderless
+                v-model="user.user_id"
+                label="CC"
+                required
+                :rules="[(val) => !!val || 'Este campo es necesario']"
+              >
+                <template v-slot:prepend>
+                  <q-icon color="grey" name="fingerprint" />
+                </template> </q-input
+              ><br />
+              <!--EMAIL-->
+              <q-input
+                class="lg_input q-mt-sm"
+                borderless
+                type="mail"
+                v-model="user.user_email"
+                label="Email"
+                required
+                :rules="[(val) => !!val || 'Este campo es necesario']"
+              >
+                <template v-slot:prepend>
+                  <q-icon color="grey" name="email" />
+                </template> </q-input
+              ><br />
+              <!--PASSWORD-->
+              <q-input
+                class="lg_input q-mt-sm"
+                borderless
+                v-model="user.user_password"
+                label="Clave"
+                :type="isPwd1 ? 'password' : 'text'"
+                required
+                :rules="[(val) => !!val || 'Este campo es necesario']"
+              >
+                <template v-slot:prepend>
+                  <q-icon color="grey" name="vpn_key" />
+                </template>
+                <template v-slot:append>
+                  <q-icon
+                    color="grey"
+                    :name="isPwd1 ? 'visibility_off' : 'visibility'"
+                    @click="isPwd1 = !isPwd1"
+                  />
+                </template> </q-input
+              ><br />
+              <!--PASSWORD CONFIRM-->
+              <q-input
+                class="lg_input q-mt-sm q-mb-lg"
+                borderless
+                v-model="user.user_passwordConfirm"
+                label="Confirmar clave"
+                :type="isPwd2 ? 'password' : 'text'"
+                required
+                :rules="[(val) => !!val || 'Este campo es necesario']"
+              >
+                <template v-slot:prepend>
+                  <q-icon color="grey" name="vpn_key" />
+                </template>
+                <template v-slot:append>
+                  <q-icon
+                    color="grey"
+                    :name="isPwd2 ? 'visibility_off' : 'visibility'"
+                    @click="isPwd2 = !isPwd2"
+                  />
+                </template>
+              </q-input>
+              <q-btn
+                type="submit"
+                class="lg_btn full-width q-mt-sm"
+                label="Registrarse"
+                color="grey"
+              />
+            </q-form>
+          </q-tab-panel>
+        </q-tab-panels>
+      </div>
     </div>
   </q-page>
 </template>
@@ -187,6 +200,7 @@ export default {
       tab: 'sign_in',
       user: {
         user_name: '',
+        user_id: '',
         user_email: '',
         user_password: '',
         user_passwordConfirm: ''
@@ -245,7 +259,7 @@ export default {
 }
 
 .lg_go_back {
-  font-family: 'Quicksand';
+  font-family: "Quicksand";
   font-size: 1.4rem;
   color: white;
   cursor: pointer;
@@ -281,7 +295,7 @@ export default {
 }
 
 .lg_btn {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 600;
   font-size: 1.1rem;
   text-transform: initial;
