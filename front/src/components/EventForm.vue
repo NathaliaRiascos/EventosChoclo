@@ -1,7 +1,7 @@
 <template>
-  <div class="row">
+  <div class="row justify-around">
     <!--EVENT TITLE-->
-    <p class="col-12 adm-title q-pl-xl">Evento</p>
+    <p class="col-11 event-title">Evento</p>
     <!--EVENT FORM-->
     <q-form
       @submit="event_form"
@@ -10,48 +10,57 @@
     >
       <!--LEFT CONTENT-->
       <div class="row justify-around col-md-5 col-xs-11">
-        <div class="event-img row justify-center items-center col-md-12 col-xs-10">
+        <!--IMAGE UPLOADER-->
+        <div class="event-img row justify-center items-center col-12">
           <q-file
             class="custom-file-input justify-center items-center col-4"
             borderless
             v-model="event.event_img"
           ></q-file>
         </div>
+        <!--NAME INPUT-->
         <q-input
           label="Nombre"
           type="text"
           v-model="event.event_name"
-          class="event-input self-end col-md-12 col-xs-10 q-mt-md"
+          class="event-input self-end col-12 q-mt-md"
           borderless
         ></q-input>
       </div>
       <!--RIGHT CONTENT-->
-      <div class="row justify-around col-md-5 col-xs-11 conditional-padd">
+      <div class="row justify-around col-md-5 col-xs-11">
+        <!--DATE INPUT-->
         <q-input
           type="date"
           v-model="event.event_date"
-          class="event-input self-start col-md-12 col-xs-10"
+          class="event-input self-start col-12 q-mt-md"
           borderless
         ></q-input>
-
+        <!--PRICE INPUT-->
         <q-input
           label="Precio"
           type="number"
           v-model="event.event_price"
-          class="event-input self-center col-md-12 col-xs-10 q-mt-md"
+          class="event-input self-center col-12 q-mt-md"
           borderless
         ></q-input>
-
+        <!--DESCRIPTION INPUT-->
         <textarea
           placeholder="Descripción"
           rows="3"
           v-model="event.event_description"
-          class="event-input text-area self-end col-md-12 col-xs-10 q-mt-md"
+          class="event-input text-area self-end col-12 q-mt-md"
           borderless
         ></textarea>
       </div>
-      <div class="row col-12 justify-end q-mt-lg">
-        <q-btn type="submit" class="add-event q-mr-xl" label="Crear evento"></q-btn>
+      <!--SUBMIT BUTTON-->
+      <div class="row col-11 justify-end q-mt-lg">
+        <q-btn
+          class="add-event q-mb-sm"
+          type="submit"
+          color="warning"
+          text-color="dark"
+          label="Crear evento"></q-btn>
       </div>
     </q-form>
   </div>
@@ -103,7 +112,7 @@ export default {
 
 <style>
 /* EVENT STYLES */
-.adm-title {
+.event-title {
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 24px;
@@ -117,7 +126,7 @@ export default {
 }
 
 .event-input {
-  height: 16% !important;
+  height: 42px !important;
   padding-left: 20px;
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
@@ -128,7 +137,7 @@ export default {
 }
 
 .text-area {
-  height: 40% !important;
+  height: 90px!important;
   padding: 8px 16px;
   overflow: auto;
   outline: none;
@@ -169,10 +178,8 @@ export default {
 /* ADD EVENT BUTTON */
 .add-event {
   width: 154px;
-  background-color: #fddb3a;
   font-family: "Quicksand", sans-serif;
   font-size: 16px;
-  color: #000000;
   text-transform: capitalize;
   border-radius: 20px;
 }

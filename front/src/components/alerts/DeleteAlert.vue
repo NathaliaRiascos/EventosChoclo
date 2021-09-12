@@ -1,43 +1,53 @@
 <template>
-    <div class="row delete-event-alert justify-around">
-        <div class="row col-12 justify-end q-pa-none">
-            <q-icon name="fas fa-times" class="col-2 close-alert" style="color: #52575d"></q-icon>
+    <div class="row delete-alert justify-around">
+        <!--CLOSE-->
+        <div class="row col-11 justify-between">
+            <i class="col-1 offset-11 fas fa-times close-alert q-mt-sm" style="color: #52575d"></i>
         </div>
-        <p class="col-10 delete-text">¿Estás seguro que deseas eliminar este evento?</p>
+        <!--TEXT-->
+        <p class="col-11 alert-text">¿Estás seguro de que deseas eliminar este <b>{{type}}</b>?</p>
+        <!--BUTTONS-->
         <q-btn label="Cancelar" class="col-5 alert-btn alert-cancel" size="16px"></q-btn>
         <q-btn label="Eliminar" class="col-5 alert-btn alert-confirm" size="16px"></q-btn>
     </div>
 </template>
+
 <script>
 export default {
+  name: 'EditShow',
+  data () {
+    return {
+      type: 'UwU'
+    }
+  }
 }
 </script>
 
 <style>
-.delete-event-alert {
-    width: 283px;
-    height: 186px;
+.delete-alert {
+    width: 317px;
+    height: 180px;
     position: absolute;
-    top: 35%;
-    right: 35%;
 
-    background: #ffffff;
+    background-color: #ffffff;
     border: 1px solid #e5e5e5;
     border-radius: 10px;
 }
 
 .close-alert {
     font-weight: 300;
-    font-size: 32px;
+    font-size: 24px;
 }
 
-.delete-text {
+.alert-text {
     font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
     font-size: 16px;
+    color: #41444b;
 }
 
 .alert-btn {
-    height: 44px !important;
+    height: 42px !important;
     font-family: 'Quicksand', sans-serif;
     font-size: 16px;
     color: #41444b;

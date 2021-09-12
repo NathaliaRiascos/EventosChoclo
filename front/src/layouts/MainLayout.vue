@@ -3,7 +3,7 @@
     <q-header elevated class="navbar-color">
         <q-toolbar>
           <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen" round dense icon="fas fa-bars" />
-          <q-toolbar-title>Eventos choclo</q-toolbar-title>
+          <q-toolbar-title class="quicksand">Eventos choclo</q-toolbar-title>
         </q-toolbar>
       </q-header>
     <!--NAVBAR LEFT CONTENT-->
@@ -46,17 +46,17 @@ const linksData = [
   {
     title: 'Eventos',
     icon: 'fas fa-calendar-day',
-    link: '/events'
+    link: '/admin/events'
   },
   {
     title: 'Usuarios',
     icon: 'fas fa-user-friends',
-    link: '/users'
+    link: '/admin/users'
   },
   {
     title: 'Informe',
     icon: 'far fa-clipboard',
-    link: '/reports'
+    link: '/admin/reports'
   },
   {
     title: 'Salir',

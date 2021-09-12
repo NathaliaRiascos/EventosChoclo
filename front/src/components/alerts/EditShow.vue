@@ -1,15 +1,20 @@
 <template>
     <div class="row edit-show-alert justify-around">
-        <div class="row col-12 justify-between q-mt-xs">
-            <p class="alert-title">Editar Show: </p>
-            <q-icon name="fas fa-times" class="col-2 close-alert" style="color: #52575d"></q-icon>
+        <!--TITLE-->
+        <div class="row col-11 justify-between q-mt-xs">
+            <p class="col-8 alert-title">Editar Show: </p>
+            <i class="col-1 fas fa-times close-alert q-mt-sm" style="color: #52575d"></i>
         </div>
+        <!--FORM-->
         <div class="row col-12 justify-around q-mb-md">
-            <q-input label="Hora" class="col-11 alert-input" borderless></q-input>
-            <q-input label="Lugar" class="col-11 alert-input" borderless></q-input>
-            <q-input label="Asientos" class="col-11 alert-input" borderless></q-input>
+            <!--TIME-->
+            <q-input placeholder="Hora" class="col-11 alert-input" borderless></q-input>
+            <!--PLACE-->
+            <q-input placeholder="Lugar" class="col-11 alert-input" borderless></q-input>
+            <!--SEATS-->
+            <q-input placeholder="Asientos" class="col-11 alert-input" borderless></q-input>
         </div>
-
+        <!--BUTTONS-->
         <q-btn label="Cancelar" class="col-5 alert-btn alert-cancel" size="16px"></q-btn>
         <q-btn label="Eliminar" class="col-5 alert-btn alert-confirm" size="16px"></q-btn>
     </div>
@@ -32,22 +37,23 @@ export default {
     border-radius: 10px;
 }
 
+.alert-title {
+    margin: 10px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: #41444b;
+}
+
 .close-alert {
-    margin: 0;
     font-weight: 300;
     font-size: 24px;
 }
 
-.alert-title {
-    margin: 10px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 16px;
-    color: #41444b;
-}
-
 .alert-input {
-  height: 44px !important;
-  padding-left: 20px;
+  height: 42px !important;
+  padding: 0 5px 0 14px;
+  margin-bottom: 5px;
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 16px;

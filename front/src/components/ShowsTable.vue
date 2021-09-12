@@ -1,18 +1,19 @@
 <template>
-  <div class="q-mt-xl">
-    <div class="row justify-between">
-      <p class="adm-title q-pl-xl">Shows</p>
-      <q-btn class="add-show q-mr-xl" label="Agregar show"></q-btn>
+  <div class="row justify-around q-my-xl">
+    <!--TITLE AND ADD BUTTON-->
+    <div class="row col-11 justify-between">
+      <p class="adm-title">Shows</p>
+      <q-btn class="add-show" label="Agregar show"></q-btn>
     </div>
 
-    <div class="shows-table-title row justify-around q-mt-md">
-      <div class="row col-11 tb-title-container q-pa-xs">
-        <div class="col-2 tb-title">#</div>
-        <div class="col-2 tb-title">Hora</div>
-        <div class="col-4 tb-title">Lugar</div>
-        <div class="col-3 tb-title">Asientos</div>
+    <div class="row col-12 shows-table-title justify-around q-mt-md">
+      <!--TABLE HEADER-->
+      <div class="row col-11 justify-start tb-title-container q-pa-xs">
+        <div class="col-2 table-title-font">Hora</div>
+        <div class="col-5 table-title-font">Lugar</div>
+        <div class="col-2 table-title-font">Asientos</div>
       </div>
-
+      <!--TABLE BODY-->
       <div class="tables-container col-11 q-mt-lg">
         <ShowTableInstance
           class="col-11"
@@ -123,6 +124,7 @@ export default {
 
 .add-show {
   width: 154px;
+  height: 42px !important;
   background-color: #f2f2f2;
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
@@ -133,13 +135,6 @@ export default {
 
 .tb-title-container {
   background-color: #f2f2f2;
-}
-
-.tb-title {
-  font-family: "Quicksand", sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  text-align: center;
 }
 
 .shows-table {

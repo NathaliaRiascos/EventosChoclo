@@ -1,16 +1,16 @@
 <template>
   <div class="row col-md-4 col-sm-12 calendar_body justify-around conditional-padd">
-    <div class="row col-12 justify-around calendar-user q-mt-md">
-      <div class="row col-5 justify-around">
-        <i class="fas fa-user-circle col-1"></i>
-        <p class="col-10">Juan</p>
-        <i class="fas fa-caret-down col-1"></i>
-      </div>
-    </div>
-    <q-date v-model="event_date" @input="getEvents()" mask="YYYY-MM-DD" class="col-8 q-my-xl" />
-    <div class="row col-10 justify-between">
-      <p class="adm-title col-3">Eventos</p>
-      <div class="q-mr-md col-2">
+    <!--CALENDAR-->
+    <q-date
+     v-model="event_date"
+     minimal
+     @input="getEvents()"
+     mask="YYYY-MM-DD"
+     class="col-8 q-my-xl calendar" />
+    <!--EVENTS-->
+    <div class="row col-11 justify-between">
+      <p class="col-3 adm-title">Eventos</p>
+      <div class="col-3">
         <q-checkbox
           v-model="showAll"
           label="Todos"
@@ -20,11 +20,12 @@
         />
       </div>
     </div>
-    <div class="col-11 events-container">
+    <div class="col-12 events-container">
       <TinyEvent
-        class="q-ma-sm"
+        class=" col-10 q-ma-sm"
+        :type="true"
         v-for="event in events"
-        :key="event.event_name"
+        :key="event.name"
         v-bind="event"/>
     </div>
   </div>
@@ -43,7 +44,38 @@ export default {
     return {
       event_date: '',
       showAll: true,
-      events: []
+      events: [
+        {
+          name: 'Fiesta y diversión',
+          date: '19 de marzo',
+          shows: 2,
+          active: false
+        },
+        {
+          name: 'Con animo de ofender',
+          date: '20 de Enero',
+          shows: 5,
+          active: false
+        },
+        {
+          name: 'God of war 3',
+          date: '30 de Noviembre',
+          shows: 20,
+          active: true
+        },
+        {
+          name: 'Coraline',
+          date: '3 de Febrero',
+          shows: 12,
+          active: false
+        },
+        {
+          name: 'El camino de los reyes',
+          date: '24 de Octubre',
+          shows: 6,
+          active: true
+        }
+      ]
     }
   },
   mounted () {
@@ -95,7 +127,8 @@ export default {
 <style>
 /* CALENDAR */
 .calendar_body {
-  height: 100vh;
+  height: 94.5vh !important;
+  overflow: hidden;
   border-left: 1px solid #e5e5e5;
 }
 
@@ -124,7 +157,7 @@ export default {
 }
 
 .events-container {
-  max-height: 400px;
+  max-height: 300px;
   overflow-y: scroll;
 }
 

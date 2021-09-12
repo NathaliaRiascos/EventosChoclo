@@ -1,1 +1,42 @@
 // app global css in SCSS form
+.ma {
+  margin: auto;
+}
+
+.quicksand {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.title-text {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #404040;
+}
+
+.subtitle-text {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 18px;
+  color: #787878;
+}
+
+.table-title-font {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.instance-font {
+  margin: 0;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #41444B;
+}
+
+.instance-font-light {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #787878;
+}
