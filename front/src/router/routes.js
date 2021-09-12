@@ -18,7 +18,8 @@ const routes = [
     path: '/client',
     component: () => import('layouts/MainClient.vue'),
     children: [
-      { path: '/eventos', component: () => import('pages/EventosCliente.vue') }
+      { path: '/eventos', component: () => import('pages/EventosCliente.vue') },
+      { path: '/eventos/:id', name: 'eventos', component: () => import('pages/Evento[id].vue') }
     ]
   },
   // Always leave this as last one,
