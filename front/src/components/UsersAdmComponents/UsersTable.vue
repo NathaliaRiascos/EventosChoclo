@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import UserSearchBar from '../components/UserSearch.vue'
-import UsersTableInstance from '../components/UsersTableInstance.vue'
+import UserSearchBar from './UserSearch.vue'
+import UsersTableInstance from './UsersTableInstance.vue'
 
 export default {
   name: 'UsersTable',

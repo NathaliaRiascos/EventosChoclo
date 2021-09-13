@@ -15,7 +15,7 @@
       class="col-md-8"
     >
       <q-list>
-        <!--SEARCH BAR-->
+        <!--SEARCH BAR
         <q-item>
           <q-input dense borderless v-model="searchContent" class="q-ml-xs search-input full-width" placeholder="Buscar...">
             <template v-slot:prepend>
@@ -23,7 +23,7 @@
                 <q-icon v-else name="fas fa-times" class="cursor-pointer" @click="searchContent = ''" />
             </template>
           </q-input>
-        </q-item>
+        </q-item>-->
         <!--ITEMS-->
         <div class="row justify-center">
           <NavLink

@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import ReportNumbers from '../components/ReportNumbers'
-import TinyEvent from '../components/TinyEvent.vue'
+import ReportNumbers from '../components/ReportsComponents/ReportNumbers'
+import TinyEvent from '../components/EventsComponents/TinyEvent.vue'
 
 export default {
   name: 'Reports',
@@ -52,19 +52,19 @@ export default {
       valores: [
         {
           title: 'Total de eventos',
-          number: '500',
+          number: 500,
           icon: 'fas fa-calendar-day',
           color: 'red-icon'
         },
         {
           title: 'Ganancias totales',
-          number: '8.000.000',
+          number: 8000000,
           icon: 'fas fa-users',
           color: 'green-icon'
         },
         {
           title: 'Usuarios totales',
-          number: '300',
+          number: 300,
           icon: 'fas fa-dollar-sign',
           color: 'blue-icon'
         }

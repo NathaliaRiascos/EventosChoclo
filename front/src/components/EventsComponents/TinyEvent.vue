@@ -28,10 +28,6 @@
 export default {
   name: 'TinyEvent',
   props: {
-    type: {
-      type: Boolean,
-      required: true
-    },
     name: {
       type: String,
       required: true
@@ -44,9 +40,11 @@ export default {
       type: Number,
       required: true
     },
+    type: {
+      type: Boolean
+    },
     active: {
-      type: Boolean,
-      required: true
+      type: Boolean
     }
   }
 }

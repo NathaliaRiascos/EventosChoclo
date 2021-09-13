@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import UserSearchBar from '../components/UserSearch.vue'
-import BannedUsersInstance from '../components/BannedUsersInstance.vue'
+import UserSearchBar from './UserSearch.vue'
+import BannedUsersInstance from './BannedUsersInstance.vue'
 
 export default {
   name: 'BannedUsers',
@@ -29,15 +29,18 @@ export default {
     return {
       users: [{
         name: 'Juanchopancho Martinez',
-        id: 123444
+        id: 123444,
+        email: 'Juancho@gmail.com'
       },
       {
         name: 'Panchita la del Pueblo',
-        id: 111234
+        id: 111234,
+        email: 'Panchita@yahoo.com'
       },
       {
         name: 'Andrés Zuluaga',
-        id: 768111
+        id: 768111,
+        email: 'AndresZ@hotmail.com'
       }]
     }
   }

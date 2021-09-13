@@ -1,6 +1,6 @@
 <template>
   <div>
-    sexo2
+    unu
     <div id="chart">
         <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
       </div>

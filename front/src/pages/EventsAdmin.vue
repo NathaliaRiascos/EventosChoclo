@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import EventForm from '../components/EventForm'
-import ShowsTable from '../components/ShowsTable'
-import EventCalendar from '../components/EventCalendar'
+import EventForm from '../components/EventsComponents/EventForm'
+import ShowsTable from '../components/EventsComponents/ShowsTable'
+import EventCalendar from '../components/EventsComponents/EventCalendar'
 
 export default {
   name: 'AdminHome',

@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import UsersTable from '../components/UsersTable.vue'
-import BannedUsers from '../components/BannedUsers.vue'
+import UsersTable from '../components/UsersAdmComponents/UsersTable.vue'
+import BannedUsers from '../components/UsersAdmComponents/BannedUsers.vue'
 
 export default {
   name: 'UsersManagement',

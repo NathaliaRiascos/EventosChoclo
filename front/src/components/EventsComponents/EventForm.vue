@@ -68,8 +68,8 @@
 
 <script>
 
-import EventService from '../services/EventService'
-import { functions } from '../functions.js'
+import EventService from '../../services/EventService'
+import { functions } from '../../functions.js'
 
 export default {
   name: 'EventAdmCreator',
