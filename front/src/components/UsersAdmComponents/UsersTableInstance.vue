@@ -31,10 +31,13 @@ export default {
     email: {
       type: String,
       required: true
+<<<<<<< Updated upstream
     },
     phone: {
       type: Number,
       required: true
+=======
+>>>>>>> Stashed changes
     }
   }
 }
