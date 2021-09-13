@@ -24,6 +24,7 @@
     "moment-timezone": "^0.5.28",
     "mongoose": "^5.9.6",
     "mongoose-pagination": "^1.0.0",
+    "mysql2": "^2.3.0",
     "node-excel-export": "^1.4.4",
     "nodemailer": "^6.4.6",
     "nodemon": "^2.0.2",
