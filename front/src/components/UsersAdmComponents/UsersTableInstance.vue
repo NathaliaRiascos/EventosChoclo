@@ -11,7 +11,9 @@
       <p class="col-md-4 col-xs-12 instance-font-light">CC. {{id}}</p>
     </div>
     <!--BUTTONS-->
-    <q-btn class="col-md-2 col-xs-3 instance-font instance-btn" label="Expandir"></q-btn>
+    <q-btn id="boton1" class="col-md-2 col-xs-3 instance-font instance-btn" label="Expandir">
+      {{id}}
+    </q-btn>
     <q-btn class="col-md-2 col-xs-3 instance-font instance-btn" label="Banear"></q-btn>
   </div>
 </template>
@@ -31,13 +33,6 @@ export default {
     email: {
       type: String,
       required: true
-<<<<<<< Updated upstream
-    },
-    phone: {
-      type: Number,
-      required: true
-=======
->>>>>>> Stashed changes
     }
   }
 }

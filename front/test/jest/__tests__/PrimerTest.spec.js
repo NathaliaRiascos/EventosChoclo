@@ -1,13 +1,14 @@
 import {mountQuasar} from '@quasar/quasar-app-extension-testing-unit-jest';
 import UserTableInstance from '../../../src/components/UsersAdmComponents/UsersTableInstance.vue'
-
+import { QBtn } from 'quasar';
 describe('Prueba inicial para comprobaciones', () => {
 
     test('Probar que las props reflejan los datos correctos', () => {
         const wrapper = mountQuasar(UserTableInstance, {
             quasar: {
                 components: {
-                    UserTableInstance,
+                    // UserTableInstance,
+                    QBtn
                 },
             },
             propsData: {
@@ -17,7 +18,7 @@ describe('Prueba inicial para comprobaciones', () => {
             },
         });
 
-        expect(wrapper).toBeTruthy(); /* Esto funciona aunque tira unos errores */
+        // expect(wrapper).toBeTruthy(); /* Esto funciona aunque tira unos errores */
 
 
         /*const p0 = wrapper.find('p').at(0).text()
@@ -28,7 +29,10 @@ describe('Prueba inicial para comprobaciones', () => {
         expect(p).toContain('Jose Damian')*/
 
 
-        expect(wrapper.text()).toContain('CC. 123456789');
+        // expect(wrapper.text()).toContain('123456789');
+
+        const boton1 = wrapper.find('#boton1').text()
+        expect(boton1).toContain("123456789")
     });
 
     /*test('Montar un componente custom y pasarle props', () => {

@@ -4,5 +4,10 @@
     "options": [
       "scripts"
     ]
+  },
+  "@quasar/testing": {
+    "harnesses": [
+      "unit-jest"
+    ]
   }
 }
