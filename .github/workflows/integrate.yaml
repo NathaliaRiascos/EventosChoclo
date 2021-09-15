@@ -14,5 +14,5 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14
-    - run: cd front && npm ci
-    - run: cd front && npx quasar test --unit jest
+      - run: cd front && npm ci
+      - run: cd front && npx quasar test --unit jest
