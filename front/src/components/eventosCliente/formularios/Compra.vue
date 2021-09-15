@@ -6,13 +6,11 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-
 export default {
-  setup () {
-    return {
-      text: ref('')
-    }
+  data: () => ({
+    text: ''
+  }),
+  methods: {
   }
 }
 </script>
