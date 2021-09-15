@@ -97,40 +97,40 @@ export default {
     padding: 0px 5%;
 }
 .btn-container{
-    height: 40px;
-    min-width: 114px;
-    max-width: 150px;
-    background-color: #E5E5E5;
+  height: 40px;
+  min-width: 114px;
+  max-width: 150px;
+  background-color: #E5E5E5;
 }
 .event-info{
-    height: auto;
-    align-items: center;
-    justify-content: space-between;
-    display: flex;
+  height: auto;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
 }
 .container-card{
-    display: grid;
-    justify-content: center;
-    grid-column-gap: 30px;
-    grid-template-columns: 323px;
+  display: grid;
+  justify-content: center;
+  grid-column-gap: 30px;
+  grid-template-columns: 323px;
 }
 
 @media only screen and (min-width: 700px){
     .container-card{
-        grid-template-columns: repeat(2, 287px);
-        justify-content: flex-start;
+      grid-template-columns: repeat(2, 287px);
+      justify-content: flex-start;
     }
 }
 @media only screen and (min-width: 1000px){
     .container-card{
-        grid-template-columns: repeat(3, 287px);
-        justify-content: flex-start;
+    grid-template-columns: repeat(3, 287px);
+    justify-content: flex-start;
     }
 }
 @media only screen and (min-width: 1350px){
     .container-card{
-        grid-template-columns: repeat(4, 287px);
-        justify-content: flex-start;
+      grid-template-columns: repeat(4, 287px);
+      justify-content: flex-start;
     }
 }
 
