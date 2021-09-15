@@ -1,6 +1,8 @@
 name: Pruebas CI
 
-on: 
+on:
+  push:
+    branches: [ Tests ]
   pull_request:
     branches: [ Tests ]
   
