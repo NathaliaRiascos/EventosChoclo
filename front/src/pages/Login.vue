@@ -3,7 +3,7 @@
     <div class="row lg_body q-pt-xl justify-center">
       <div class="col-md-4 col-sm-9 col-xs-11">
         <!--RETURN DIV-->
-        <div class="lg_go_back q-mb-md" @click="goTo('/')">
+        <div class="lg_go_back q-mb-md" @click="$router.go(-1)">
           <i class="fas fa-arrow-left"></i>
           Volver al <b> inicio </b>
         </div>

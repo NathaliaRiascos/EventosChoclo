@@ -9,7 +9,7 @@
             <router-link
               @click.native="detectarClick"
               class="item-menu"
-              to=""
+              to="/login"
             >Iniciar Sesión</router-link>
             <router-link
               @click.native="detectarClick"

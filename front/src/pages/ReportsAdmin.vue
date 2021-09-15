@@ -5,7 +5,7 @@
       <div class="row col-12 justify-between">
       <!--HEADER-->
       <div class="row col-12 report-header q-my-lg">
-        <p class="col-6 title-text">Informe</p>
+        <p id="unu" class="col-6 title-text">Informe</p>
         <q-select
           class="col-6 report-filter"
           filled
@@ -42,6 +42,16 @@ export default {
   components: {
     ReportNumbers,
     TinyEvent
+  },
+  props: {
+    ReportValues: {
+      type: Array,
+      default: () => []
+    },
+    ReportEvents: {
+      type: Array,
+      default: () => []
+    }
   },
   data () {
     return {
