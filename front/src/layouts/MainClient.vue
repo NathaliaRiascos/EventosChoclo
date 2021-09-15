@@ -34,4 +34,9 @@ body{
   background-color: var(--principal);
   color: var(--color-text-dark);
 }
+
+.input {
+  background-color: #F2F2F2;
+  height: 42px;
+}
 </style>

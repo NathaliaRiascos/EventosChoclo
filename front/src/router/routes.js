@@ -29,7 +29,7 @@ const routes = [
     component: () => import('layouts/MainClient.vue'),
     children: [
       { path: '/eventos', component: () => import('pages/EventosCliente.vue'), meta: { title: 'Eventos Choclo' } },
-      { path: '/eventos/:id', component: () => import('pages/Evento[id].vue'), meta: { title: 'Evento' } }
+      { path: '/eventos/:id', name: 'eventos', component: () => import('pages/Evento[id].vue') }
     ]
   },
 
