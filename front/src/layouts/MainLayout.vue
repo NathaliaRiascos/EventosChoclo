@@ -1,107 +1,100 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
-
+    <q-header elevated class="navbar-color">
+        <q-toolbar>
+          <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen" round dense icon="fas fa-bars" />
+          <q-toolbar-title class="quicksand">Eventos choclo</q-toolbar-title>
+        </q-toolbar>
+      </q-header>
+    <!--NAVBAR LEFT CONTENT-->
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-1"
+      content-class="navbar-color"
+      class="col-md-8"
     >
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <!--SEARCH BAR
+        <q-item>
+          <q-input dense borderless v-model="searchContent" class="q-ml-xs search-input full-width" placeholder="Buscar...">
+            <template v-slot:prepend>
+                <q-icon v-if="searchContent === ''" name="fas fa-search" />
+                <q-icon v-else name="fas fa-times" class="cursor-pointer" @click="searchContent = ''" />
+            </template>
+          </q-input>
+        </q-item>-->
+        <!--ITEMS-->
+        <div class="row justify-center">
+          <NavLink
+            class="col-11 q-mt-sm"
+            v-for="link in navLinks"
+            :key="link.title"
+            v-bind="link" />
+        </div>
       </q-list>
     </q-drawer>
 
-    <q-page-container>
-      <router-view />
-    </q-page-container>
+      <q-page-container class="row">
+        <router-view />
+      </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
+import NavLink from 'components/NavLink.vue'
 const linksData = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Inicio',
+    icon: 'fas fa-home',
+    link: '/'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'Eventos',
+    icon: 'fas fa-calendar-day',
+    link: '/admin/events'
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    title: 'Usuarios',
+    icon: 'fas fa-user-friends',
+    link: '/admin/users'
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    title: 'Informe',
+    icon: 'far fa-clipboard',
+    link: '/admin/reports'
   },
   {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    title: 'Salir',
+    icon: 'fas fa-sign-out-alt',
+    link: '/logout'
   }
 ]
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink },
+  components: { NavLink },
   data () {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData
+      navLinks: linksData,
+      searchContent: ''
     }
   }
 }
 </script>
+
+<style>
+.navbar-color {
+  background-color: #52575D;
+}
+
+.search-input{
+  padding-left: 10px;
+  background-color: #d8d8d8;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  border-radius: 5px;
+}
+</style>
