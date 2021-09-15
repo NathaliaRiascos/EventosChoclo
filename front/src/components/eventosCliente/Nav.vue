@@ -9,6 +9,11 @@
             <router-link
               @click.native="detectarClick"
               class="item-menu"
+              to="/admin"
+            >Admin</router-link>
+            <router-link
+              @click.native="detectarClick"
+              class="item-menu"
               to="/login"
             >Iniciar Sesión</router-link>
             <router-link

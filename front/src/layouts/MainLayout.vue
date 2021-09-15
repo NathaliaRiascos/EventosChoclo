@@ -65,6 +65,11 @@ const linksData = [
     link: '/admin/reports'
   },
   {
+    title: 'Eventos cliente',
+    icon: 'fas fa-ticket-alt',
+    link: '/eventos'
+  },
+  {
     title: 'Salir',
     icon: 'fas fa-sign-out-alt',
     link: '/logout'
