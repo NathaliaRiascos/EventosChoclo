@@ -97,10 +97,10 @@ export default {
     padding: 0px 5%;
 }
 .btn-container{
-    height: 40px;
-    min-width: 114px;
-    max-width: 150px;
-    background-color: #E5E5E5;
+  height: 40px;
+  min-width: 114px;
+  max-width: 150px;
+  background-color: #E5E5E5;
 }
 .event-info{
   height: auto;
