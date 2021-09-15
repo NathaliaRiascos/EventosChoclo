@@ -28,7 +28,8 @@ const routes = [
     path: '/client',
     component: () => import('layouts/MainClient.vue'),
     children: [
-      { path: '/eventos', component: () => import('pages/EventosCliente.vue'), meta: { title: 'Eventos Choclo' } }
+      { path: '/eventos', component: () => import('pages/EventosCliente.vue'), meta: { title: 'Eventos Choclo' } },
+      { path: '/eventos/:id', name: 'eventos', component: () => import('pages/Evento[id].vue') }
     ]
   },
 

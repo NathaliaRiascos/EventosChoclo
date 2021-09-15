@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Nav from 'components/Nav.vue'
+import Nav from 'src/components/eventosCliente/Nav.vue'
 
 export default {
   name: 'Header',
