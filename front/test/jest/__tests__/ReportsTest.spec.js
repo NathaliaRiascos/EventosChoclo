@@ -47,7 +47,7 @@ describe('Pruebas en la UI de reportes', () => {
   const vm = wrapper.vm;
 
   it('Probando los reportes por defecto', () => {
-    const reportes = wrapper.findAll(ReportNumbers)
+    const reportes = wrapper.findAllComponents(ReportNumbers)
     const rep1 = reportes.at(0)
     expect(rep1.text()).toContain('500' && 'Total de eventos')
 
