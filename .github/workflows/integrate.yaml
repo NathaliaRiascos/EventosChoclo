@@ -16,3 +16,4 @@ jobs:
           node-version: 14
       - run: cd front && npm ci
       - run: cd front && npx quasar test --unit jest
+      - run: cd front && pwd && npm run build
