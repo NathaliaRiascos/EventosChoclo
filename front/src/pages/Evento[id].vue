@@ -16,7 +16,7 @@
         <hr class="barra">
       </div>
       <div class="card">
-          <img class="card-img" src="" alt="">
+          <img class="card-img" src="~assets/evento.jpg" alt="Imagen de evento">
           <div class="card-info">
             <div>
               <p class="fecha">19 Marzo del 2021</p>

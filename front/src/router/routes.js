@@ -19,6 +19,7 @@ const routes = [
     path: '/admin',
     component: () => import('layouts/MainLayout.vue'),
     children: [
+      { path: '', component: () => import('pages/Index.vue'), meta: { title: 'Admin' } },
       { path: '/admin/events', component: () => import('pages/EventsAdmin.vue'), meta: { title: 'Eventos' } },
       { path: '/admin/reports', component: () => import('pages/ReportsAdmin.vue'), meta: { title: 'Reportes' } },
       { path: '/admin/users', component: () => import('pages/UsersAdmin.vue'), meta: { title: 'Usuarios' } }
