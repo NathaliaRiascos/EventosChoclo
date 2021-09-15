@@ -1,0 +1,16 @@
+name: Pruebas CI
+
+on: 
+  pull_request:
+    branches: [ Tests ]
+  
+jobs:
+  ci_to_master:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+    - run: npm ci
+    - run: quasar test --unit jest

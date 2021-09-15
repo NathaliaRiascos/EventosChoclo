@@ -1,0 +1,40 @@
+[
+  {
+    "id": "1",
+    "title": "Fiesta y diversión",
+    "date": "2021-03-04",
+    "price": "50.000",
+    "shows": [
+      {"hour": "15:00 pm","place": "Evento online"}
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Godzila vs King kong",
+    "date": "2021-04-01",
+    "price": "50.000",
+    "shows": [
+      {"hour": "15:00 pm","place": "Evento online"}
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Con animo de ofender",
+    "date": "2021-03-05",
+    "price": "50.000",
+    "shows": [
+      {"hour": "15:00 pm","place": "Evento online"}
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Evento x",
+    "date": "2021-12-11",
+    "price": "100.000",
+    "shows": [
+      {"hour": "15:00 pm","place": "Evento online"},
+      {"hour": "15:00 pm","place": "Evento online"},
+      {"hour": "15:00 pm","place": "Evento online"}
+    ]
+  }
+]

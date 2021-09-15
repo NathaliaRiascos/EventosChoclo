@@ -24,11 +24,19 @@ export default {
   --color-text-dark: #41444B;
   --color-text-light: #FAFAFA;
 }
+body{
+  background-color: var(--color-text-light);
+}
 .contenedor-paginas{
   padding-top: 0px !important;
 }
 .btn-principal{
   background-color: var(--principal);
   color: var(--color-text-dark);
+}
+
+.input {
+  background-color: #F2F2F2;
+  height: 42px;
 }
 </style>
