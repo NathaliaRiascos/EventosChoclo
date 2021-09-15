@@ -5,7 +5,7 @@
             <router-link
             to="/eventos"
             class="item"
-            >Eventosx > </router-link>
+            >Eventos > </router-link>
             {{evento && evento.title}}
         </p>
         <router-link
