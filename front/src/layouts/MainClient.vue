@@ -24,6 +24,9 @@ export default {
   --color-text-dark: #41444B;
   --color-text-light: #FAFAFA;
 }
+body{
+  background-color: var(--color-text-light);
+}
 .contenedor-paginas{
   padding-top: 0px !important;
 }
