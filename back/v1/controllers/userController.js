@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 
 const schemaRegister = Joi.object({
   user_name: Joi.string().min(6).max(255).required(),
+  user_identify: Joi.string().min(6).max(255).required(),
   user_email: Joi.string().min(6).max(255).required().email(),
   user_password: Joi.string().min(6).max(255).required(),
   user_passwordConfirm: Joi.string().min(6).max(255).required()
@@ -22,7 +23,9 @@ exports.login = async function(req, res) {
   if (error) return res.status(400).json({ error: error.details[0].message })
   
   const user = await User.findOne({ 
-    c
+    where: {
+      user_email: req.body.user_email
+    }
    });
   if (!user) return res.status(400).json({ error: 'Usuario no encontrado' });
 
