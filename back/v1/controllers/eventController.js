@@ -1,6 +1,8 @@
 'use strict'
 
 const Event = require('../models').event
+const { QueryTypes } = require('sequelize');
+
 
 exports.store = async function(req, res) {
     try{
@@ -26,10 +28,11 @@ exports.store = async function(req, res) {
 
 exports.get = async function(req, res) {
     try{
-        const events = await Event.findAll()
+        let events = []
+        const eventsReq = await Event.findAll()
         res.json({
             error: null,
-            data: events
+            data: eventsReq
           })
 
     } catch (error) {
@@ -39,17 +42,42 @@ exports.get = async function(req, res) {
 
 exports.getByDate = async function(req, res) {
     try{
-        const events = await Event.findAll({
+        let events = []
+        const eventsReq = await Event.findAll({
             where: {
               event_date: req.params.event_date
             }
         })
           res.json({
             error: null,
-            data: events
+            data: eventsReq
           })
 
     } catch (error) {
         res.status(400).json({error})
     }
 }
+
+exports.update = async function(req, res) {
+    try {
+      const event = await Event.findOne({ 
+        where: {
+          event_id: req.body.event.event_id
+        }
+       })
+       console.log(req.body)
+      await event.save({
+        event_name: req.body.event.event_name,
+        event_date: req.body.event.event_date,
+        event_description: req.body.event.event_description,
+        event_price: req.body.event.event_price,
+        event_img: req.body.event.event_img
+      })
+      res.json({
+        error: null,
+        data: playlist
+      })
+    } catch (error) {
+      res.status(400).json({error})
+    }
+  }

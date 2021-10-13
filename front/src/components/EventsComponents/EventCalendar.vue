@@ -24,9 +24,11 @@
       <TinyEvent
         class=" col-10 q-ma-sm"
         :type="true"
-        v-for="event in events"
-        :key="event.name"
-        v-bind="event"/>
+        v-for="ev in events"
+        :key="ev.event_id"
+        :event="ev"
+        @editEvent="editEvent"
+        />
     </div>
   </div>
 </template>
@@ -44,38 +46,14 @@ export default {
     return {
       event_date: '',
       showAll: true,
-      events: [
-        {
-          name: 'Fiesta y diversión',
-          date: '19 de marzo',
-          shows: 2,
-          active: false
-        },
-        {
-          name: 'Con animo de ofender',
-          date: '20 de Enero',
-          shows: 5,
-          active: false
-        },
-        {
-          name: 'God of war 3',
-          date: '30 de Noviembre',
-          shows: 20,
-          active: true
-        },
-        {
-          name: 'Coraline',
-          date: '3 de Febrero',
-          shows: 12,
-          active: false
-        },
-        {
-          name: 'El camino de los reyes',
-          date: '24 de Octubre',
-          shows: 6,
-          active: true
-        }
-      ]
+      events: [],
+      event: {
+        event_name: '',
+        eventImgUrl: '',
+        event_date: '',
+        event_price: '',
+        event_description: ''
+      }
     }
   },
   mounted () {
@@ -89,6 +67,7 @@ export default {
         if (this.showAll) {
           const res = await EventService.getEvents({ token: localStorage.getItem('token') })
           this.events = res.data.data
+          console.log(this.events)
         } else {
           const data = {}
           data.token = localStorage.getItem('token')
@@ -119,6 +98,9 @@ export default {
       }
       this.event_date = year + '-' + month + '-' + day
       console.log(this.event_date)
+    },
+    editEvent (event) {
+      this.$emit('editEvent', event)
     }
   }
 }

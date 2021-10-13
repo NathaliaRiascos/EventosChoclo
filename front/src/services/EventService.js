@@ -9,5 +9,8 @@ export default {
   },
   getEventsByDate (params) {
     return Api().get('getEvents-date/' + params.event_date, params, { headers: { Authorization: params.token } })
+  },
+  update (params) {
+    return Api().post('updateEvent/' + params.event.event_id, params, { headers: { Authorization: params.token } })
   }
 }

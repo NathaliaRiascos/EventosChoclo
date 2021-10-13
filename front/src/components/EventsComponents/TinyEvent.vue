@@ -4,14 +4,14 @@
     <q-img class="col-3 tiny-event-img"></q-img>
     <!--DATA-->
     <div class="col-6">
-        <p class="tiny-event-title">{{name}}</p>
-        <p class="tiny-event-text">{{date}}</p>
-        <p class="tiny-event-text">{{shows}} shows</p>
+        <p class="tiny-event-title">{{event.event_name}}</p>
+        <p class="tiny-event-text">{{event.event_date}}</p>
+        <p class="tiny-event-text">{{event.event_shows}} shows</p>
     </div>
       <div class="row col-2 justify-around items-center">
         <!--ACTION BUTTONS-->
         <div v-if="type">
-          <q-icon name="fas fa-pen tiny-event-icon q-pr-sm" style="color: #color: #52575d" />
+          <q-icon @click="editEvent" name="fas fa-pen tiny-event-icon q-pr-sm" style="color: #color: #52575d" />
           <q-icon name="fas fa-trash tiny-event-icon" style="color: #eb4335" />
         </div>
         <!--STATE MESSAGE-->
@@ -28,23 +28,16 @@
 export default {
   name: 'TinyEvent',
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    date: {
-      type: String,
-      required: true
-    },
-    shows: {
-      type: Number,
-      required: true
+    event: {
+      type: Object
     },
     type: {
       type: Boolean
-    },
-    active: {
-      type: Boolean
+    }
+  },
+  methods: {
+    editEvent () {
+      this.$emit('editEvent', this.event)
     }
   }
 }

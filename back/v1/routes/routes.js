@@ -16,10 +16,14 @@ module.exports = function (app) {
 	// Users
 	app.post('/v1/login', UserController.login)
 	app.post('/v1/register', UserController.register)
+	app.get('/v1/getUsers', UserController.getUsers)
+	app.post('/v1/searchUsers', UserController.searchUsers)
 
 	// Events
 	app.post('/v1/event', verifyToken, EventController.store)
 	app.get('/v1/getEvents', EventController.get)
 	app.get('/v1/getEvents-date/:event_date', EventController.getByDate)
+	app.post('/v1/updateEvent/:event_id', EventController.update)
+
 
 }

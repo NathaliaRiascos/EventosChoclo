@@ -21,5 +21,11 @@ export default {
   },
   deleteUser (params) {
     return Api().delete('user/' + params.id, { headers: { Authorization: params.token } })
+  },
+  getUsers (params) {
+    return Api().get('getUsers', { headers: { Authorization: params.token } })
+  },
+  searchUsers (params) {
+    return Api().post('searchUsers', params, { headers: { Authorization: params.token } })
   }
 }
