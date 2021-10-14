@@ -9,7 +9,7 @@ module.exports = (sequelize, DateType) => {
         type: DateType.INTEGER
       },
       event_id: {
-        type: DateType.STRING
+        type: DateType.INTEGER
       }
     });
   
