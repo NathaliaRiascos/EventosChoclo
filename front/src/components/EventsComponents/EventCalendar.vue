@@ -29,6 +29,7 @@
         :event="ev"
         @editEvent="editEvent"
         @deleteEvent="deleteEvent"
+        @viewEvent="viewEvent"
         />
     </div>
   </div>
@@ -105,9 +106,6 @@ export default {
       this.event_date = year + '-' + month + '-' + day
       console.log(this.event_date)
     },
-    editEvent (event) {
-      this.$emit('editEvent', event)
-    },
     async deleteEvent (event) {
       try {
         const params = {
@@ -123,6 +121,12 @@ export default {
         console.log(error)
         this.alert('negative', error.response.error)
       }
+    },
+    editEvent (event) {
+      this.$emit('editEvent', event)
+    },
+    viewEvent (event) {
+      this.$emit('viewEvent', event)
     }
   }
 }

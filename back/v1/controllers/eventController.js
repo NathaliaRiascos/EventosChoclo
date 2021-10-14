@@ -42,7 +42,6 @@ exports.get = async function(req, res) {
 
 exports.getByDate = async function(req, res) {
     try{
-        let events = []
         const eventsReq = await Event.findAll({
             where: {
               event_date: req.params.event_date

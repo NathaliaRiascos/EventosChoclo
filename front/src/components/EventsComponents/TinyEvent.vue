@@ -1,12 +1,12 @@
 <template>
   <div class="row justify-around tiny-event-container q-my-md">
     <!--IMAGE-->
-    <q-img class="col-3 tiny-event-img"></q-img>
+    <q-img style="cursor: pointer;" @click="viewEvent" class="col-3 tiny-event-img"></q-img>
     <!--DATA-->
     <div class="col-6">
-        <p class="tiny-event-title">{{event.event_name}}</p>
-        <p class="tiny-event-text">{{event.event_date}}</p>
-        <p class="tiny-event-text">{{event.event_shows}} shows</p>
+        <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-title">{{event.event_name}}</p>
+        <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-text">{{event.event_date}}</p>
+        <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-text">{{event.event_shows}} shows</p>
     </div>
       <div class="row col-2 justify-around items-center">
         <!--ACTION BUTTONS-->
@@ -41,6 +41,9 @@ export default {
     },
     deleteEvent () {
       this.$emit('deleteEvent', this.event)
+    },
+    viewEvent () {
+      this.$emit('viewEvent', this.event)
     }
   }
 }

@@ -3,17 +3,24 @@
     <div class="row col-md-8 col-sm-12 q-mt-xl">
       <!--ADD EVENT-->
       <EventForm
+        class="col-12"
+        :isView="isView"
         :isEdited="isEdited"
-        :event="event" class="col-12"
+        :event="event"
         @cancel="cancel"/>
       <!--EVENT SHOWS-->
-      <ShowsTable  class="col-12"/>
+      <ShowsTable
+        class="col-12"
+        :canCreate="isView"
+        :eventId="event.event_id"/>
       <!--ADD EVENT-->
     </div>
     <!--CALENDAR-->
-    <EventCalendar @editEvent="editEvent"
-        :update="update"
-        @changeUpdate="changeUpdate"/>
+    <EventCalendar
+      @editEvent="editEvent"
+      :update="update"
+      @changeUpdate="changeUpdate"
+      @viewEvent="viewEvent"/>
   </div>
 </template>
 
@@ -46,13 +53,15 @@ export default {
         event_description: ''
       },
       isEdited: false,
-      update: false
+      update: false,
+      isView: false
     }
   },
   methods: {
     editEvent (event) {
       this.event = event
       this.isEdited = true
+      this.isView = false
     },
     cancel () {
       this.event = this.default_event
@@ -61,6 +70,10 @@ export default {
     },
     changeUpdate () {
       this.update = false
+    },
+    viewEvent (event) {
+      this.event = event
+      this.isView = true
     }
   }
 }

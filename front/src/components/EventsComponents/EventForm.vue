@@ -53,24 +53,25 @@
       </div>
       <!--SUBMIT BUTTON-->
       <div class="row col-11 justify-end q-mt-lg">
-        <div v-if="isEdited">
-          <q-btn
-            class="add-event q-mb-sm"
-            type="submit"
-            color="secondary"
-            text-color="dark"
-            @click="editItem"
-            label="Editar">
-          </q-btn>
-          <q-btn
-            class="add-event q-mb-sm"
-            type="submit"
-            color="red"
-            text-color="dark"
-            @click="cancel"
-            label="Cancelar">
-          </q-btn>
-        </div>
+        <div v-if="!isView">
+          <div v-if="isEdited">
+            <q-btn
+              class="add-event q-mb-sm"
+              type="submit"
+              color="secondary"
+              text-color="dark"
+              @click="editItem"
+              label="Editar">
+            </q-btn>
+            <q-btn
+              class="add-event q-mb-sm"
+              type="submit"
+              color="red"
+              text-color="dark"
+              @click="cancel"
+              label="Cancelar">
+            </q-btn>
+          </div>
           <q-btn
             v-else
             class="add-event q-mb-sm"
@@ -80,6 +81,7 @@
             @click="event_form"
             label="Crear evento">
           </q-btn>
+        </div>
       </div>
     </div>
   </div>
@@ -98,6 +100,9 @@ export default {
       type: Object
     },
     isEdited: {
+      type: Boolean
+    },
+    isView: {
       type: Boolean
     }
   },
