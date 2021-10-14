@@ -60,7 +60,6 @@ export default {
     async addShow () {
       try {
         const data = this.show
-        console.log(this.eventId)
         data.event_id = this.eventId
         data.token = localStorage.getItem('token')
         const request = await ShowService.store(this.show)

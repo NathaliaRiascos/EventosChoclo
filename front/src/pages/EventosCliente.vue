@@ -16,7 +16,7 @@
       <router-link
         v-for="evento in eventos"
         :key="evento.id"
-        :to="{name: 'eventos', params: {id:evento.id}}"
+        :to="{name: 'eventos', params: {id:evento.event_id}}"
       >
         <Card
           :evento="evento"
@@ -77,9 +77,9 @@ export default {
         data.event_date = mesId
         const res = await EventService.getEventsByDate(data)
         if (res.data.data) {
-          this.events = res.data.data
+          this.eventos = res.data.data
         } else {
-          this.events = []
+          this.eventos = []
         }
       } catch (error) {
         console.log(error)

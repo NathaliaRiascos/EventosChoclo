@@ -15,5 +15,8 @@ export default {
   },
   delete (params) {
     return Api().post('deleteEvent/' + params.event_id, params, { headers: { Authorization: params.token } })
+  },
+  getEventById (params) {
+    return Api().get('getEvent-id/' + params.id, { headers: { Authorization: params.token } })
   }
 }

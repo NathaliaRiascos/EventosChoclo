@@ -6,7 +6,7 @@
             to="/eventos"
             class="item"
             >Eventos > </router-link>
-            {{evento && evento.title}}
+            {{evento && evento.event_name}}
         </p>
         <router-link
             to="/eventos"
@@ -19,11 +19,11 @@
           <img class="card-img" src="~assets/evento.jpg" alt="Imagen de evento">
           <div class="card-info">
             <div>
-              <p class="fecha">19 Marzo del 2021</p>
-              <h1 class="card-title card-title_evento">{{evento && evento.title}}</h1>
-              <p class="card-price"> ${{evento && evento.price}}</p>
+              <p class="fecha">{{evento && evento.event_date}}</p>
+              <h1 class="card-title card-title_evento">{{evento && evento.event_name}}</h1>
+              <p class="card-price"> ${{evento && evento.event_price}}</p>
             </div>
-            <button @click="itClicked = true" class="card-button">Comprar boleta</button>
+            <button @click="buyTicket" class="card-button">Comprar boleta</button>
           </div>
       </div>
       <div class="card-show" >
@@ -35,46 +35,48 @@
       <div class="card-detalle">
         <h1 class="card-title">Acerca del evento</h1>
         <p>
-        Sumáte a nuestra charla especial sobre uno de los destinos mas exóticos del mundo brindada por el equipo de agentes de viajes que mas saben.
-
-        Tips de Viajes.
-        Lugares que no te podes perder.
-        Consejos para que tu viaje sea un éxito.
-        Visita virtual.
-        Una experiencia completa para conectar con la historia de nuestro mundo.
-
-        Ahora que estas en casa, aporvechá para planear esos viajes que tanto soñas con hacer.
-
-        Anotate a esta charla!</p>
+          {{evento && evento.event_description}}
+        </p>
       </div>
-      <Modal :itClicked="itClicked" @accion="isShow"/>
+      <!-- <Modal :itClicked="itClicked" @accion="isShow"/> -->
    </div>
 </template>
 
 <script>
 
-import data from 'src/components/eventosCliente/db.json'
 import Show from 'src/components/eventosCliente/Show'
-import Modal from 'src/components/eventosCliente/Modal'
+// import Modal from 'src/components/eventosCliente/Modal'
+import EventService from '../services/EventService'
+import SellService from '../services/SellService'
+import { functions } from '../functions.js'
 
 export default {
+  mixins: [functions],
   data: () => ({
     evento: null,
     shows: null,
-    itClicked: false
+    itClicked: false,
+    user: JSON.parse(localStorage.getItem('user'))
   }),
   mounted () {
     this.getEvento()
   },
   methods: {
-    getEvento () {
-      data.forEach(elem => {
-        if (elem.id === this.$route.params.id) {
-          this.evento = elem
-          this.shows = elem.shows
+    async getEvento () {
+      try {
+        const data = {}
+        data.token = localStorage.getItem('token')
+        data.id = this.$route.params.id
+        const res = await EventService.getEventById(data)
+        if (res.data.data) {
+          this.evento = res.data.data
+          this.shows = res.data.data.shows
+        } else {
+          this.evento = {}
         }
-      })
-      console.log(typeof this.$route.params.id, this.shows)
+      } catch (error) {
+        console.log(error)
+      }
     },
     detectarClick () {
       this.itClicked = true
@@ -82,11 +84,23 @@ export default {
     },
     isShow (value) {
       this.itClicked = value
+    },
+    async buyTicket () {
+      try {
+        const data = {}
+        data.token = localStorage.getItem('token')
+        data.event_id = this.evento.event_id
+        data.user_id = this.user.user_id
+        await SellService.store(data)
+        this.alert('positive', 'Boleta comprada exitosamente')
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   components: {
-    Show,
-    Modal
+    Show
+    // Modal
   }
 }
 </script>

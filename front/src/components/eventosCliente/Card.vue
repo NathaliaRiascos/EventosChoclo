@@ -2,8 +2,8 @@
   <div class="card">
       <img class="card-img" src="~assets/evento.jpg" alt="Imagen de evento" >
       <div class="card-info">
-        <span class="card-fecha">{{`${evento.date.split('-')[2]} ${mes}`}}</span>
-        <p class="card-titulo">{{ evento.title }}</p>
+        <span class="card-fecha">{{`${evento.event_date.split('-')[2]} ${mes}`}}</span>
+        <p class="card-titulo">{{ evento.event_name }}</p>
       </div>
   </div>
 </template>

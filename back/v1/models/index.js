@@ -29,6 +29,7 @@ db.user = require("../models/user.js")(sequelize, Sequelize);
 db.role = require("../models/role.js")(sequelize, Sequelize);
 db.event = require("../models/event.js")(sequelize, Sequelize);
 db.show = require("../models/show.js")(sequelize, Sequelize);
+db.sell = require("../models/sell.js")(sequelize, Sequelize);
 
 db.user.belongsTo(db.role, {
   foreignKey: { 
@@ -43,6 +44,28 @@ db.show.belongsTo(db.event, {
     allowNull: false
   }
 })
+
+db.event.hasMany(db.show, {
+  foreignKey: {
+    name: "event_id",
+    allowNull: false
+  }
+})
+
+db.sell.belongsTo(db.user, {
+  foreignKey: {
+    name: "user_id",
+    allowNull: false
+  }
+})
+
+db.sell.belongsTo(db.event, {
+  foreignKey: {
+    name: "event_id",
+    allowNull: false
+  }
+})
+
 
 db.ROLES = ["user", "admin"];
 

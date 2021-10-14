@@ -6,7 +6,7 @@
     <div class="col-6">
         <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-title">{{event.event_name}}</p>
         <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-text">{{event.event_date}}</p>
-        <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-text">{{event.event_shows}} shows</p>
+        <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-text">{{event.shows.length}} shows</p>
     </div>
       <div class="row col-2 justify-around items-center">
         <!--ACTION BUTTONS-->
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'TinyEvent',
   props: {
@@ -35,6 +36,14 @@ export default {
       type: Boolean
     }
   },
+  data () {
+    return {
+      active: true
+    }
+  },
+  mounted () {
+    this.setActive()
+  },
   methods: {
     editEvent () {
       this.$emit('editEvent', this.event)
@@ -44,6 +53,13 @@ export default {
     },
     viewEvent () {
       this.$emit('viewEvent', this.event)
+    },
+    setActive () {
+      if (moment(new Date(this.event.event_date)) > moment()) {
+        this.active = true
+      } else {
+        this.active = false
+      }
     }
   }
 }
