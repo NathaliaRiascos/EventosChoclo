@@ -2,6 +2,7 @@
 
 const Event = require('../models').event
 const { QueryTypes } = require('sequelize');
+const { Op } = require("sequelize");
 
 
 exports.store = async function(req, res) {
@@ -42,15 +43,34 @@ exports.get = async function(req, res) {
 
 exports.getByDate = async function(req, res) {
     try{
-        const eventsReq = await Event.findAll({
+      
+        const nums = req.params.event_date.split('-')
+        if(nums.length > 1){
+          const eventsReq = await Event.findAll({
             where: {
               event_date: req.params.event_date
             }
-        })
+          })
           res.json({
             error: null,
             data: eventsReq
           })
+        }else {
+          const param1 = '2021-'+ req.params.event_date + '-1'
+          const param2 = '2021-'+ req.params.event_date + '-31'
+          const eventsReq = await Event.findAll({
+            where: {
+              event_date: {
+                [Op.between]: [ moment().startOf('1').format(), moment().endOf('31').format()],
+               }
+            }
+          })
+          res.json({
+            error: null,
+            data: eventsReq
+          })
+        }
+        
 
     } catch (error) {
         res.status(400).json({error})

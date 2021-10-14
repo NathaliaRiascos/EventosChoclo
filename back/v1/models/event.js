@@ -9,7 +9,7 @@ module.exports = (sequelize, DateType) => {
         type: DateType.STRING
       },
       event_date: {
-        type: DateType.STRING
+        type: DateType.DATE
       },
       event_description: {
         type: DateType.STRING

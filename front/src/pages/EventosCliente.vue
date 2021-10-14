@@ -31,7 +31,8 @@
 
 import Meses from 'src/components/eventosCliente/Meses.vue'
 import Card from 'src/components/eventosCliente/Card.vue'
-import data from 'src/components/eventosCliente/db.json'
+import EventService from '../services/EventService'
+// import data from 'src/components/eventosCliente/db.json'
 
 const meses = [
   { id: '01', name: 'Enero' },
@@ -69,15 +70,20 @@ export default {
       this.mesId = item.id
       this.getEvent(this.mesId)
     },
-    getEvent (mesId) {
-      const arr = []
-      data.map(item => {
-        if (item.date.split('-')[1].includes(mesId)) {
-          arr.push(item)
+    async getEvent (mesId) {
+      try {
+        const data = {}
+        data.token = localStorage.getItem('token')
+        data.event_date = mesId
+        const res = await EventService.getEventsByDate(data)
+        if (res.data.data) {
+          this.events = res.data.data
+        } else {
+          this.events = []
         }
-      })
-      console.log('desde eventos', this.mesName)
-      this.eventos = arr
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
