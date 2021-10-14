@@ -13,12 +13,6 @@
     <q-tab-panels v-model="tab" class="row col-12 justify-around">
       <q-tab-panel name="users" class="row col-12 justify-around">
         <UsersTable class="col-md-5 col-sm-11 q-mt-lg"/>
-        <div v-if="$q.screen.gt.sm" class="row col-md-5 col-sm-11">
-          <BannedUsers class="col-12 q-mt-lg"/>
-        </div>
-      </q-tab-panel>
-      <q-tab-panel name="banned" class="row col-12 justify-around">
-        <BannedUsers class="col-md-5 col-sm-11 q-mt-lg"/>
       </q-tab-panel>
     </q-tab-panels>
   </div>
@@ -26,13 +20,11 @@
 
 <script>
 import UsersTable from '../components/UsersAdmComponents/UsersTable.vue'
-import BannedUsers from '../components/UsersAdmComponents/BannedUsers.vue'
 
 export default {
   name: 'UsersManagement',
   components: {
-    UsersTable,
-    BannedUsers
+    UsersTable
   },
   data () {
     return {

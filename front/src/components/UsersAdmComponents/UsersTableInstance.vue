@@ -20,7 +20,6 @@
       </div>
     <!--BUTTONS-->
     <q-btn id="boton1" class="col-md-2 col-xs-3 instance-font instance-btn" label="Expandir" v-on:click="expandirMethod"></q-btn>
-    <q-btn class="col-md-2 col-xs-3 instance-font instance-btn" label="Banear" v-on:click="banearMethod"></q-btn>
   </div>
 </template>
 
@@ -53,9 +52,6 @@ export default {
   methods: {
     expandirMethod: function () {
       this.expand = !this.expand
-    },
-    banearMethod: function () {
-      console.log('Función para banear al usuario')
     }
   }
 }

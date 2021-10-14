@@ -47,13 +47,7 @@ const meses = [
   { id: '11', name: 'Noviembre' },
   { id: '12', name: 'Diciembre' }
 ]
-/*
-const data_ = [
-  { title: 'Fiesta y diversión', date: '2021-03-04', shows: '2' },
-  { title: 'Godzila vs King kong', date: '2021-04-01', shows: '25' },
-  { title: 'Con animo de ofender', date: '2021-03-05', shows: '3' },
-  { title: 'Evento x', date: '2021-03-011', shows: '3' }
-] */
+
 export default {
   data: () => ({
     meses,
