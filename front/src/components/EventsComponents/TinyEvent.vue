@@ -1,18 +1,18 @@
 <template>
   <div class="row justify-around tiny-event-container q-my-md">
     <!--IMAGE-->
-    <q-img class="col-3 tiny-event-img"></q-img>
+    <q-img style="cursor: pointer;" @click="viewEvent" class="col-3 tiny-event-img"></q-img>
     <!--DATA-->
     <div class="col-6">
-        <p class="tiny-event-title">{{name}}</p>
-        <p class="tiny-event-text">{{date}}</p>
-        <p class="tiny-event-text">{{shows}} shows</p>
+        <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-title">{{event.event_name}}</p>
+        <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-text">{{event.event_date}}</p>
+        <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-text">{{event.shows.length}} shows</p>
     </div>
       <div class="row col-2 justify-around items-center">
         <!--ACTION BUTTONS-->
         <div v-if="type">
-          <q-icon name="fas fa-pen tiny-event-icon q-pr-sm" style="color: #color: #52575d" />
-          <q-icon name="fas fa-trash tiny-event-icon" style="color: #eb4335" />
+          <q-icon @click="editEvent" name="fas fa-pen tiny-event-icon q-pr-sm" style="color: #color: #52575d" />
+          <q-icon @click="deleteEvent" name="fas fa-trash tiny-event-icon" style="color: #eb4335" />
         </div>
         <!--STATE MESSAGE-->
         <div v-else>
@@ -25,26 +25,41 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'TinyEvent',
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    date: {
-      type: String,
-      required: true
-    },
-    shows: {
-      type: Number,
-      required: true
+    event: {
+      type: Object
     },
     type: {
       type: Boolean
+    }
+  },
+  data () {
+    return {
+      active: true
+    }
+  },
+  mounted () {
+    this.setActive()
+  },
+  methods: {
+    editEvent () {
+      this.$emit('editEvent', this.event)
     },
-    active: {
-      type: Boolean
+    deleteEvent () {
+      this.$emit('deleteEvent', this.event)
+    },
+    viewEvent () {
+      this.$emit('viewEvent', this.event)
+    },
+    setActive () {
+      if (moment(new Date(this.event.event_date)) > moment()) {
+        this.active = true
+      } else {
+        this.active = false
+      }
     }
   }
 }

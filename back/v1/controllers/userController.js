@@ -3,9 +3,11 @@ const User = require('../models').user
 const Joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const { Op } = require("sequelize");
 
 const schemaRegister = Joi.object({
   user_name: Joi.string().min(6).max(255).required(),
+  user_identify: Joi.string().min(6).max(255).required(),
   user_email: Joi.string().min(6).max(255).required().email(),
   user_password: Joi.string().min(6).max(255).required(),
   user_passwordConfirm: Joi.string().min(6).max(255).required()
@@ -22,7 +24,9 @@ exports.login = async function(req, res) {
   if (error) return res.status(400).json({ error: error.details[0].message })
   
   const user = await User.findOne({ 
-    c
+    where: {
+      user_email: req.body.user_email
+    }
    });
   if (!user) return res.status(400).json({ error: 'Usuario no encontrado' });
 
@@ -79,6 +83,50 @@ exports.register = async function(req, res) {
   } catch (error) {
     res.status(400).json({error})
   }
+}
+
+exports.getUsers = async function(req, res) {
+  const users = []
+  const usersReq = await User.findAll();
+  for (let index = 0; index < usersReq.length; index++) {
+    const user = usersReq[index]
+    users[index] = {
+      'id': user.user_identify,
+      'name': user.user_name,
+      'email': user.user_email,
+      'phone': user.user_phone
+  }    
+  }
+  console.log(users)
+  res.json({
+    error:null,
+    data:users
+  });
+}
+
+exports.searchUsers = async function(req, res) {
+  const users = []
+  const usersReq = await User.findAll({
+    where: {
+      user_name: {
+        [Op.substring]: req.body.search
+      }
+    }
+  });
+  for (let index = 0; index < usersReq.length; index++) {
+    const user = usersReq[index]
+    users[index] = {
+      'id': user.user_identify,
+      'name': user.user_name,
+      'email': user.user_email,
+      'phone': user.user_phone
+  }    
+  }
+  console.log(users)
+  res.json({
+    error:null,
+    data:users
+  });
 }
 
 exports.setRank = async function(req, res) {

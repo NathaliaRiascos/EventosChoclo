@@ -109,7 +109,7 @@
               <q-input
                 class="lg_input q-mt-sm"
                 borderless
-                v-model="user.user_id"
+                v-model="user.user_identify"
                 label="CC"
                 required
                 :rules="[(val) => !!val || 'Este campo es necesario']"
@@ -200,7 +200,7 @@ export default {
       tab: 'sign_in',
       user: {
         user_name: '',
-        user_id: '',
+        user_identify: '',
         user_email: '',
         user_password: '',
         user_passwordConfirm: ''

@@ -3,7 +3,7 @@
     <!--TITLE AND ADD BUTTON-->
     <div class="row col-11 justify-between">
       <p class="adm-title">Shows</p>
-      <q-btn class="add-show" label="Agregar show"></q-btn>
+      <q-btn class="add-show" :disabled="!canCreate" @click="addShow" label="Agregar show"></q-btn>
     </div>
 
     <div class="row col-12 shows-table-title justify-around q-mt-md">
@@ -17,97 +17,133 @@
       <div class="tables-container col-11 q-mt-lg">
         <ShowTableInstance
           class="col-11"
-          v-for="show in shows"
-          :key="show.number"
-          v-bind="show"
+          v-for="showt in shows"
+          :key="showt.show_id"
+          :show="showt"
+          @editShow="editShow"
+          @deleteShow="deleteShow"
         />
       </div>
     </div>
+    <q-dialog v-model="AddEditShow">
+      <edit-show
+        @cancelEditAddShow="cancelEditAddShow"
+        @showCreated="showCreated"
+        :isEdited="isEdited"
+        :show="show"
+        :eventId="eventId"/>
+    </q-dialog>
+    <q-dialog v-model="eliminar">
+      <delete-alert @cancelDelete="cancelDelete" @confirmlDelete="confirmlDelete" item='Show'></delete-alert>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import ShowTableInstance from './ShowTableInstance'
+import EditShow from '../../components/alerts/EditShow.vue'
+import DeleteAlert from '../../components/alerts/DeleteAlert.vue'
+import ShowService from '../../services/ShowService'
+import { functions } from '../../functions.js'
 
 export default {
   name: 'ShowAdmTable',
-  components: { ShowTableInstance },
+  mixins: [functions],
+  components: {
+    ShowTableInstance,
+    EditShow,
+    DeleteAlert
+  },
+  props: {
+    eventId: {
+      type: Number
+    },
+    canCreate: {
+      type: Boolean
+    }
+  },
   data () {
     return {
-      shows: [
-        {
-          number: 23,
-          hour: '4:00',
-          place: 'Cine Colombia',
-          seats: 29
-        },
-        {
-          number: 25,
-          hour: '7:00',
-          place: 'Teatro de Cali',
-          seats: 5000
-        },
-        {
-          number: 30,
-          hour: '19:00',
-          place: 'Estadio nacional',
-          seats: 50000
-        },
-        {
-          number: 15,
-          hour: '4:00',
-          place: 'Cine Colombia',
-          seats: 29
-        },
-        {
-          number: 52,
-          hour: '7:00',
-          place: 'Teatro de Cali',
-          seats: 5000
-        },
-        {
-          number: 78,
-          hour: '19:00',
-          place: 'Estadio nacional',
-          seats: 50000
-        },
-        {
-          number: 65,
-          hour: '4:00',
-          place: 'Cine Colombia',
-          seats: 29
-        },
-        {
-          number: 89,
-          hour: '7:00',
-          place: 'Teatro de Cali',
-          seats: 5000
-        },
-        {
-          number: 899,
-          hour: '19:00',
-          place: 'Estadio nacional',
-          seats: 50000
-        },
-        {
-          number: 985,
-          hour: '4:00',
-          place: 'Cine Colombia',
-          seats: 29
-        },
-        {
-          number: 235,
-          hour: '7:00',
-          place: 'Teatro de Cali',
-          seats: 5000
-        },
-        {
-          number: 893,
-          hour: '19:00',
-          place: 'Estadio nacional',
-          seats: 50000
+      AddEditShow: false,
+      isEdited: false,
+      shows: [],
+      show: {},
+      showToDelete: {},
+      eliminar: false,
+      defaultShow: {
+        show_number: '',
+        show_time: '',
+        show_place: '',
+        show_sits: ''
+      }
+    }
+  },
+  watch: {
+    eventId () {
+      this.getShows()
+    }
+  },
+  methods: {
+    addShow () {
+      this.show = this.defaultShow
+      this.isEdited = false
+      this.AddEditShow = true
+    },
+    cancelEditAddShow () {
+      this.AddEditShow = false
+    },
+    showCreated () {
+      this.show = this.defaultShow
+      this.AddEditShow = false
+      this.getShows()
+    },
+    editShow (showParam) {
+      this.show = showParam
+      this.AddEditShow = true
+      this.isEdited = true
+    },
+    async confirmlDelete () {
+      try {
+        const params = {
+          token: localStorage.getItem('token'),
+          show_id: this.showToDelete.show_id
         }
-      ]
+        const request = await ShowService.delete(params)
+        if (request.status === 200) {
+          this.alert('positive', 'Show eliminado correctamente')
+          this.getShows()
+          this.showToDelete = {}
+          this.eliminar = false
+        }
+      } catch (error) {
+        console.log(error)
+        this.alert('negative', error.response.error)
+      }
+    },
+    cancelDelete () {
+      this.eliminar = false
+      this.showToDelete = {}
+    },
+    async getShows () {
+      try {
+        this.activateLoading('Cargando')
+        const data = {}
+        data.token = localStorage.getItem('token')
+        data.event_id = this.eventId
+        const res = await ShowService.getShows(data)
+        if (res.data.data) {
+          this.shows = res.data.data
+        } else {
+          this.shows = []
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      this.disableLoading()
+    },
+    deleteShow (show) {
+      this.eliminar = true
+      this.showToDelete = show
     }
   }
 }

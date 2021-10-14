@@ -4,7 +4,7 @@
       <p v-if="$q.screen.gt.sm" class="col-12 title-text q-mt-lg">Usuarios</p>
       <!--SEARCH BAR-->
       <div class="row col-12 justify-start">
-        <UserSearchBar class="col-md-5 col-xs-11"/>
+        <UserSearchBar @search="searchUsers" class="col-md-5 col-xs-11"/>
       </div>
       <!--TABLE HEADER-->
       <div v-if="$q.screen.gt.sm" class="row col-12 justify-around table-header q-mt-xl q-py-sm">
@@ -26,6 +26,7 @@
 <script>
 import UserSearchBar from './UserSearch.vue'
 import UsersTableInstance from './UsersTableInstance.vue'
+import UserService from '../../services/UserService'
 
 export default {
   name: 'UsersTable',
@@ -35,26 +36,39 @@ export default {
   },
   data () {
     return {
-      users: [
-        {
-          id: 111222,
-          name: 'Juanito alicante',
-          email: 'juanito.alicante@gmail.com',
-          phone: 3178881122
-        },
-        {
-          id: 666777,
-          name: 'María Pepa',
-          email: 'maria.pepa@gmail.com',
-          phone: 3178883344
-        },
-        {
-          id: 888999,
-          name: 'José José Ramirez',
-          email: 'jose.ramirez@gmail.com',
-          phone: 3178885566
+      users: []
+    }
+  },
+  mounted () {
+    this.getUsers()
+  },
+  methods: {
+    async getUsers () {
+      try {
+        if (localStorage.getItem('token')) {
+          const params = {
+            token: this.token
+          }
+          const request = await UserService.getUsers(params)
+          this.users = request.data.data
         }
-      ]
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async searchUsers (val) {
+      try {
+        if (localStorage.getItem('token')) {
+          const params = {
+            token: this.token,
+            search: val
+          }
+          const request = await UserService.searchUsers(params)
+          this.users = request.data.data
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

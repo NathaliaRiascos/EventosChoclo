@@ -17,6 +17,11 @@ export default {
     return {
       searchContent: ''
     }
+  },
+  watch: {
+    searchContent (val) {
+      this.$emit('search', val)
+    }
   }
 }
 </script>

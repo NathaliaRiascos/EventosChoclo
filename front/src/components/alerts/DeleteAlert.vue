@@ -2,22 +2,30 @@
     <div class="row delete-alert justify-around">
         <!--CLOSE-->
         <div class="row col-11 justify-between">
-            <i class="col-1 offset-11 fas fa-times close-alert q-mt-sm" style="color: #52575d"></i>
+            <i @click="cancelDelete" class="col-1 offset-11 fas fa-times close-alert q-mt-sm" style="color: #52575d;  cursor: pointer;"></i>
         </div>
         <!--TEXT-->
-        <p class="col-11 alert-text">¿Estás seguro de que deseas eliminar este <b>{{type}}</b>?</p>
+        <p class="col-11 alert-text">¿Estás seguro de que deseas eliminar este <b>{{item}}</b>?</p>
         <!--BUTTONS-->
-        <q-btn label="Cancelar" class="col-5 alert-btn alert-cancel" size="16px"></q-btn>
-        <q-btn label="Eliminar" class="col-5 alert-btn alert-confirm" size="16px"></q-btn>
+        <q-btn @click="cancelDelete" label="Cancelar" class="col-5 alert-btn alert-cancel" size="16px"></q-btn>
+        <q-btn @click="confirmlDelete" label="Eliminar" class="col-5 alert-btn alert-confirm" size="16px"></q-btn>
     </div>
 </template>
 
 <script>
 export default {
   name: 'EditShow',
+  props: ['item'],
   data () {
     return {
-      type: 'UwU'
+    }
+  },
+  methods: {
+    cancelDelete () {
+      this.$emit('cancelDelete')
+    },
+    confirmlDelete () {
+      this.$emit('confirmlDelete')
     }
   }
 }
