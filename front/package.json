@@ -23,6 +23,7 @@
     "axios": "^0.18.1",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
+    "moment": "^2.29.1",
     "quasar": "^1.0.0",
     "vue-apexcharts": "^1.6.2"
   },

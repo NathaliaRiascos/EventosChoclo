@@ -1,8 +1,8 @@
 <template>
     <div class="card-show">
-        <p class="card-item">Hora <span>{{ show && show.hour }}</span></p>
+        <p class="card-item">Hora <span>{{ show && show.show_time }}</span></p>
         <hr class="vertical">
-        <p class="card-item">Lugar <span>{{ show && show.place }}</span></p>
+        <p class="card-item">Lugar <span>{{ show && show.show_place }}</span></p>
     </div>
 </template>
 
@@ -14,7 +14,6 @@ export default {
   },
   methods: {
     getEvento () {
-      console.log(this.show)
     }
   },
   props: {

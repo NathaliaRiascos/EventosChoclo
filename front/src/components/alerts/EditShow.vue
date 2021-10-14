@@ -2,34 +2,100 @@
     <div class="row edit-show-alert justify-around">
         <!--TITLE-->
         <div class="row col-11 justify-between q-mt-xs">
-            <p class="col-8 alert-title">Editar Show: </p>
-            <i class="col-1 fas fa-times close-alert q-mt-sm" style="color: #52575d"></i>
+            <p v-if="isEdited" class="col-8 alert-title">Editar Show: </p>
+            <p v-else class="col-8 alert-title">Agregar Show: </p>
+            <i @click="cancelEditAddShow" class="col-1 fas fa-times close-alert q-mt-sm" style="color: #52575d; cursor: pointer;"></i>
         </div>
         <!--FORM-->
         <div class="row col-12 justify-around q-mb-md">
+            <span v-if="isEdited">Numero</span>
+            <q-input v-model="show.show_number" placeholder="Numero" class="col-11 alert-input" borderless></q-input>
             <!--TIME-->
-            <q-input placeholder="Hora" class="col-11 alert-input" borderless></q-input>
+            <span v-if="isEdited">Hora</span>
+            <q-input v-model="show.show_time" placeholder="Hora" class="col-11 alert-input" borderless></q-input>
             <!--PLACE-->
-            <q-input placeholder="Lugar" class="col-11 alert-input" borderless></q-input>
+            <span v-if="isEdited">Lugar</span>
+            <q-input v-model="show.show_place" placeholder="Lugar" class="col-11 alert-input" borderless></q-input>
             <!--SEATS-->
-            <q-input placeholder="Asientos" class="col-11 alert-input" borderless></q-input>
+            <span v-if="isEdited">Asientos</span>
+            <q-input v-model="show.show_sits" placeholder="Asientos" class="col-11 alert-input" borderless></q-input>
         </div>
         <!--BUTTONS-->
-        <q-btn label="Cancelar" class="col-5 alert-btn alert-cancel" size="16px"></q-btn>
-        <q-btn label="Eliminar" class="col-5 alert-btn alert-confirm" size="16px"></q-btn>
+        <q-btn label="Cancelar" @click="cancelEditAddShow" class="col-5 alert-btn alert-cancel" size="16px"></q-btn>
+        <q-btn v-if="isEdited" @click="editShow" label="Editar" class="col-5 alert-btn alert-confirm" size="16px"></q-btn>
+        <q-btn v-else @click="addShow" label="Agregar" class="col-5 alert-btn alert-confirm" size="16px"></q-btn>
     </div>
 </template>
 
 <script>
+import ShowService from '../../services/ShowService'
+import { functions } from '../../functions.js'
+
 export default {
-  name: 'EditShow'
+  name: 'EditShow',
+  mixins: [functions],
+  props: {
+    show: {
+      type: Object
+    },
+    isEdited: {
+      type: Boolean
+    },
+    eventId: {
+      type: Number
+    }
+  },
+  data () {
+    return {
+    }
+  },
+  methods: {
+    cancelEditAddShow () {
+      this.$emit('cancelEditAddShow')
+      this.show.show_number = ''
+      this.show.show_time = ''
+      this.show.show_place = ''
+      this.show.show_sits = ''
+    },
+    async addShow () {
+      try {
+        const data = this.show
+        data.event_id = this.eventId
+        data.token = localStorage.getItem('token')
+        const request = await ShowService.store(this.show)
+        if (request.status === 200) {
+          this.alert('positive', 'Show creado correctamente')
+          this.$emit('showCreated')
+          this.cancelEditAddShow()
+        }
+      } catch (error) {
+        this.alert('negative', error.response.data.error)
+      }
+    },
+    async editShow () {
+      try {
+        const params = {
+          token: localStorage.getItem('token'),
+          show: this.show
+        }
+        const request = await ShowService.update(params)
+        if (request.status === 200) {
+          this.alert('positive', 'Show editado correctamente')
+          this.$emit('showCreated')
+        }
+      } catch (error) {
+        console.log(error)
+        this.alert('negative', error.response.error)
+      }
+    }
+  }
 }
 </script>
 
 <style>
 .edit-show-alert {
     width: 317px;
-    height: 324px;
+    height: 424px;
     position: absolute;
 
     background-color: #ffffff;

@@ -4,15 +4,22 @@
     <div v-if="$q.screen.gt.sm" class="row col-md-6 col-xs-5">
       <p id="UTI-p1" class="col-md-4 col-xs-12 instance-font">{{id}}</p>
       <p id="UTI-p2" class="col-md-8 col-xs-12 instance-font">{{name}}</p>
+      <div v-if="expand">
+        <span>Correo: </span><p class="col-md-4 col-xs-12 instance-font-light"> {{email}}</p>
+        <span>Telefono: </span><p class="col-md-4 col-xs-12 instance-font-light"> {{phone}}</p>
+      </div>
     </div>
     <!--PHONE VIEW OF DATA-->
     <div v-else class="row col-md-6 col-xs-5">
       <p id="UTI-p3" class="col-md-8 col-xs-12 instance-font q-m-none">{{name}}</p>
       <p id="UTI-p4" class="col-md-4 col-xs-12 instance-font-light">CC. {{id}}</p>
-    </div>
+      <div v-if="expand">
+        <span>Correo: </span><p class="col-md-4 col-xs-12 instance-font-light"> {{email}}</p>
+        <span>Telefono: </span><p class="col-md-4 col-xs-12 instance-font-light"> {{phone}}</p>
+      </div>
+      </div>
     <!--BUTTONS-->
     <q-btn id="boton1" class="col-md-2 col-xs-3 instance-font instance-btn" label="Expandir" v-on:click="expandirMethod"></q-btn>
-    <q-btn class="col-md-2 col-xs-3 instance-font instance-btn" label="Banear" v-on:click="banearMethod"></q-btn>
   </div>
 </template>
 
@@ -21,7 +28,7 @@ export default {
   name: 'UsersTableInstance',
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
     name: {
@@ -31,14 +38,20 @@ export default {
     email: {
       type: String,
       required: true
+    },
+    phone: {
+      type: String,
+      required: false
+    }
+  },
+  data () {
+    return {
+      expand: false
     }
   },
   methods: {
     expandirMethod: function () {
-      console.log('Función para expandir los datos')
-    },
-    banearMethod: function () {
-      console.log('Función para banear al usuario')
+      this.expand = !this.expand
     }
   }
 }

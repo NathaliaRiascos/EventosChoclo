@@ -24,63 +24,55 @@
       <TinyEvent
         class=" col-10 q-ma-sm"
         :type="true"
-        v-for="event in events"
-        :key="event.name"
-        v-bind="event"/>
+        v-for="ev in events"
+        :key="ev.event_id"
+        :event="ev"
+        @editEvent="editEvent"
+        @deleteEvent="deleteEvent"
+        @viewEvent="viewEvent"
+        />
     </div>
+    <q-dialog v-model="eliminar">
+      <delete-alert @cancelDelete="cancelDelete" @confirmlDelete="confirmlDelete" item='Evento'></delete-alert>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import TinyEvent from './TinyEvent'
 import EventService from '../../services/EventService'
+import DeleteAlert from '../../components/alerts/DeleteAlert.vue'
 import { functions } from '../../functions.js'
 
 export default {
   name: 'EventCalendar',
   mixins: [functions],
-  components: { TinyEvent },
+  components: { TinyEvent, DeleteAlert },
+  props: {
+    update: {
+      type: Boolean
+    }
+  },
   data () {
     return {
       event_date: '',
       showAll: true,
-      events: [
-        {
-          name: 'Fiesta y diversión',
-          date: '19 de marzo',
-          shows: 2,
-          active: false
-        },
-        {
-          name: 'Con animo de ofender',
-          date: '20 de Enero',
-          shows: 5,
-          active: false
-        },
-        {
-          name: 'God of war 3',
-          date: '30 de Noviembre',
-          shows: 20,
-          active: true
-        },
-        {
-          name: 'Coraline',
-          date: '3 de Febrero',
-          shows: 12,
-          active: false
-        },
-        {
-          name: 'El camino de los reyes',
-          date: '24 de Octubre',
-          shows: 6,
-          active: true
-        }
-      ]
+      events: [],
+      eliminar: false,
+      eventToDelete: {}
     }
   },
   mounted () {
     this.getEvents()
     this.getDate()
+  },
+  watch: {
+    update () {
+      if (this.update) {
+        this.getEvents()
+        this.$emit('changeUpdate')
+      }
+    }
   },
   methods: {
     async getEvents () {
@@ -119,6 +111,38 @@ export default {
       }
       this.event_date = year + '-' + month + '-' + day
       console.log(this.event_date)
+    },
+    async confirmlDelete () {
+      try {
+        const params = {
+          token: localStorage.getItem('token'),
+          event_id: this.eventToDelete.event_id
+        }
+        const request = await EventService.delete(params)
+        if (request.status === 200) {
+          this.alert('positive', 'Evento eliminado correctamente')
+          this.getEvents()
+          this.eliminar = false
+          this.eventToDelete = {}
+        }
+      } catch (error) {
+        console.log(error)
+        this.alert('negative', error.response.error)
+      }
+    },
+    editEvent (event) {
+      this.$emit('editEvent', event)
+    },
+    viewEvent (event) {
+      this.$emit('viewEvent', event)
+    },
+    cancelDelete () {
+      this.eliminar = false
+      this.eventToDelete = {}
+    },
+    deleteEvent (event) {
+      this.eliminar = true
+      this.eventToDelete = event
     }
   }
 }

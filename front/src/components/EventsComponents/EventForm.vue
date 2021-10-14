@@ -3,9 +3,7 @@
     <!--EVENT TITLE-->
     <p class="col-11 event-title">Evento</p>
     <!--EVENT FORM-->
-    <q-form
-      @submit="event_form"
-      action="submit"
+    <div
       class="row col-12 justify-around q-mt-sm"
     >
       <!--LEFT CONTENT-->
@@ -55,14 +53,47 @@
       </div>
       <!--SUBMIT BUTTON-->
       <div class="row col-11 justify-end q-mt-lg">
-        <q-btn
-          class="add-event q-mb-sm"
-          type="submit"
-          color="warning"
-          text-color="dark"
-          label="Crear evento"></q-btn>
+        <div v-if="!isView">
+          <div v-if="isEdited">
+            <q-btn
+              class="add-event q-mb-sm"
+              type="submit"
+              color="secondary"
+              text-color="dark"
+              @click="editItem"
+              label="Editar">
+            </q-btn>
+            <q-btn
+              class="add-event q-mb-sm"
+              type="submit"
+              color="red"
+              text-color="dark"
+              @click="cancel"
+              label="Cancelar">
+            </q-btn>
+          </div>
+          <q-btn
+            v-else
+            class="add-event q-mb-sm"
+            type="submit"
+            color="warning"
+            text-color="dark"
+            @click="event_form"
+            label="Crear evento">
+          </q-btn>
+        </div>
+        <div v-else>
+          <q-btn
+            class="add-event q-mb-sm"
+            type="submit"
+            color="red"
+            text-color="dark"
+            @click="cancel"
+            label="Cancelar">
+            </q-btn>
+        </div>
       </div>
-    </q-form>
+    </div>
   </div>
 </template>
 
@@ -74,15 +105,19 @@ import { functions } from '../../functions.js'
 export default {
   name: 'EventAdmCreator',
   mixins: [functions],
+  props: {
+    event: {
+      type: Object
+    },
+    isEdited: {
+      type: Boolean
+    },
+    isView: {
+      type: Boolean
+    }
+  },
   data () {
     return {
-      event: {
-        event_name: '',
-        eventImgUrl: '',
-        event_date: '',
-        event_price: '',
-        event_description: ''
-      }
     }
   },
   methods: {
@@ -93,16 +128,34 @@ export default {
         const request = await EventService.store(this.event)
         if (request.status === 200) {
           this.alert('positive', 'Evento creado correctamente')
-          this.event = {
-            event_name: '',
-            eventImgUrl: '',
-            event_date: '',
-            event_price: '',
-            event_description: ''
-          }
+          this.cancel()
         }
       } catch (error) {
         this.alert('negative', error.response.data.error)
+      }
+    },
+    cancel () {
+      this.$emit('cancel')
+      this.event.event_img = ''
+      this.event.event_name = ''
+      this.event.event_price = ''
+      this.event.event_date = ''
+      this.event.event_description = ''
+    },
+    async editItem () {
+      try {
+        const params = {
+          token: localStorage.getItem('token'),
+          event: this.event
+        }
+        const request = await EventService.update(params)
+        if (request.status === 200) {
+          this.alert('positive', 'Evento editado correctamente')
+          this.cancel()
+        }
+      } catch (error) {
+        console.log(error)
+        this.alert('negative', error.response.error)
       }
     }
   }

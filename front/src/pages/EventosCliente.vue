@@ -16,7 +16,7 @@
       <router-link
         v-for="evento in eventos"
         :key="evento.id"
-        :to="{name: 'eventos', params: {id:evento.id}}"
+        :to="{name: 'eventos', params: {id:evento.event_id}}"
       >
         <Card
           :evento="evento"
@@ -31,7 +31,8 @@
 
 import Meses from 'src/components/eventosCliente/Meses.vue'
 import Card from 'src/components/eventosCliente/Card.vue'
-import data from 'src/components/eventosCliente/db.json'
+import EventService from '../services/EventService'
+// import data from 'src/components/eventosCliente/db.json'
 
 const meses = [
   { id: '01', name: 'Enero' },
@@ -47,13 +48,7 @@ const meses = [
   { id: '11', name: 'Noviembre' },
   { id: '12', name: 'Diciembre' }
 ]
-/*
-const data_ = [
-  { title: 'Fiesta y diversión', date: '2021-03-04', shows: '2' },
-  { title: 'Godzila vs King kong', date: '2021-04-01', shows: '25' },
-  { title: 'Con animo de ofender', date: '2021-03-05', shows: '3' },
-  { title: 'Evento x', date: '2021-03-011', shows: '3' }
-] */
+
 export default {
   data: () => ({
     meses,
@@ -75,15 +70,20 @@ export default {
       this.mesId = item.id
       this.getEvent(this.mesId)
     },
-    getEvent (mesId) {
-      const arr = []
-      data.map(item => {
-        if (item.date.split('-')[1].includes(mesId)) {
-          arr.push(item)
+    async getEvent (mesId) {
+      try {
+        const data = {}
+        data.token = localStorage.getItem('token')
+        data.event_date = mesId
+        const res = await EventService.getEventsByDate(data)
+        if (res.data.data) {
+          this.eventos = res.data.data
+        } else {
+          this.eventos = []
         }
-      })
-      console.log('desde eventos', this.mesName)
-      this.eventos = arr
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
