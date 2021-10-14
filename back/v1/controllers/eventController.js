@@ -65,8 +65,7 @@ exports.update = async function(req, res) {
           event_id: req.body.event.event_id
         }
        })
-       console.log(req.body)
-      await event.save({
+      await event.update({
         event_name: req.body.event.event_name,
         event_date: req.body.event.event_date,
         event_description: req.body.event.event_description,
@@ -75,7 +74,25 @@ exports.update = async function(req, res) {
       })
       res.json({
         error: null,
-        data: playlist
+        data: event
+      })
+    } catch (error) {
+      res.status(400).json({error})
+    }
+  }
+
+  exports.delete = async function(req, res) {
+    try {
+      const event = await Event.findOne({ 
+        where: {
+          event_id: req.body.event_id
+        }
+       })
+       console.log(event)
+      await event.destroy()
+      res.json({
+        error: null,
+        data: event
       })
     } catch (error) {
       res.status(400).json({error})

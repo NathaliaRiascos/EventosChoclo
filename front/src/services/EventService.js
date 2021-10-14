@@ -12,5 +12,8 @@ export default {
   },
   update (params) {
     return Api().post('updateEvent/' + params.event.event_id, params, { headers: { Authorization: params.token } })
+  },
+  delete (params) {
+    return Api().post('deleteEvent/' + params.event_id, params, { headers: { Authorization: params.token } })
   }
 }

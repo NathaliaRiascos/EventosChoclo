@@ -24,6 +24,7 @@ module.exports = function (app) {
 	app.get('/v1/getEvents', EventController.get)
 	app.get('/v1/getEvents-date/:event_date', EventController.getByDate)
 	app.post('/v1/updateEvent/:event_id', EventController.update)
+	app.post('/v1/deleteEvent/:event_id', EventController.delete)
 
 
 }

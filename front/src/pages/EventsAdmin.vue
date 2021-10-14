@@ -11,7 +11,9 @@
       <!--ADD EVENT-->
     </div>
     <!--CALENDAR-->
-    <EventCalendar @editEvent="editEvent"/>
+    <EventCalendar @editEvent="editEvent"
+        :update="update"
+        @changeUpdate="changeUpdate"/>
   </div>
 </template>
 
@@ -30,6 +32,11 @@ export default {
   data () {
     return {
       event: {
+        event_name: '',
+        eventImgUrl: '',
+        event_date: '',
+        event_price: '',
+        event_description: ''
       },
       default_event: {
         event_name: '',
@@ -38,7 +45,8 @@ export default {
         event_price: '',
         event_description: ''
       },
-      isEdited: false
+      isEdited: false,
+      update: false
     }
   },
   methods: {
@@ -49,6 +57,10 @@ export default {
     cancel () {
       this.event = this.default_event
       this.isEdited = false
+      this.update = true
+    },
+    changeUpdate () {
+      this.update = false
     }
   }
 }

@@ -125,7 +125,7 @@ export default {
     async editItem () {
       try {
         const params = {
-          token: this.token,
+          token: localStorage.getItem('token'),
           event: this.event
         }
         const request = await EventService.update(params)
@@ -135,7 +135,7 @@ export default {
         }
       } catch (error) {
         console.log(error)
-        this.alert('negative', error.response.data.error)
+        this.alert('negative', error.response.error)
       }
     }
   }

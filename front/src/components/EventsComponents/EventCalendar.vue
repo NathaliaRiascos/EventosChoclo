@@ -28,6 +28,7 @@
         :key="ev.event_id"
         :event="ev"
         @editEvent="editEvent"
+        @deleteEvent="deleteEvent"
         />
     </div>
   </div>
@@ -42,23 +43,29 @@ export default {
   name: 'EventCalendar',
   mixins: [functions],
   components: { TinyEvent },
+  props: {
+    update: {
+      type: Boolean
+    }
+  },
   data () {
     return {
       event_date: '',
       showAll: true,
-      events: [],
-      event: {
-        event_name: '',
-        eventImgUrl: '',
-        event_date: '',
-        event_price: '',
-        event_description: ''
-      }
+      events: []
     }
   },
   mounted () {
     this.getEvents()
     this.getDate()
+  },
+  watch: {
+    update () {
+      if (this.update) {
+        this.getEvents()
+        this.$emit('changeUpdate')
+      }
+    }
   },
   methods: {
     async getEvents () {
@@ -67,7 +74,6 @@ export default {
         if (this.showAll) {
           const res = await EventService.getEvents({ token: localStorage.getItem('token') })
           this.events = res.data.data
-          console.log(this.events)
         } else {
           const data = {}
           data.token = localStorage.getItem('token')
@@ -101,6 +107,22 @@ export default {
     },
     editEvent (event) {
       this.$emit('editEvent', event)
+    },
+    async deleteEvent (event) {
+      try {
+        const params = {
+          token: localStorage.getItem('token'),
+          event_id: event.event_id
+        }
+        const request = await EventService.delete(params)
+        if (request.status === 200) {
+          this.alert('positive', 'Evento eliminado correctamente')
+          this.getEvents()
+        }
+      } catch (error) {
+        console.log(error)
+        this.alert('negative', error.response.error)
+      }
     }
   }
 }

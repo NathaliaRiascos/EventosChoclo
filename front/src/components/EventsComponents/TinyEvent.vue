@@ -12,7 +12,7 @@
         <!--ACTION BUTTONS-->
         <div v-if="type">
           <q-icon @click="editEvent" name="fas fa-pen tiny-event-icon q-pr-sm" style="color: #color: #52575d" />
-          <q-icon name="fas fa-trash tiny-event-icon" style="color: #eb4335" />
+          <q-icon @click="deleteEvent" name="fas fa-trash tiny-event-icon" style="color: #eb4335" />
         </div>
         <!--STATE MESSAGE-->
         <div v-else>
@@ -38,6 +38,9 @@ export default {
   methods: {
     editEvent () {
       this.$emit('editEvent', this.event)
+    },
+    deleteEvent () {
+      this.$emit('deleteEvent', this.event)
     }
   }
 }
