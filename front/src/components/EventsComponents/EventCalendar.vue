@@ -32,18 +32,22 @@
         @viewEvent="viewEvent"
         />
     </div>
+    <q-dialog v-model="eliminar">
+      <delete-alert @cancelDelete="cancelDelete" @confirmlDelete="confirmlDelete" item='Evento'></delete-alert>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import TinyEvent from './TinyEvent'
 import EventService from '../../services/EventService'
+import DeleteAlert from '../../components/alerts/DeleteAlert.vue'
 import { functions } from '../../functions.js'
 
 export default {
   name: 'EventCalendar',
   mixins: [functions],
-  components: { TinyEvent },
+  components: { TinyEvent, DeleteAlert },
   props: {
     update: {
       type: Boolean
@@ -53,7 +57,9 @@ export default {
     return {
       event_date: '',
       showAll: true,
-      events: []
+      events: [],
+      eliminar: false,
+      eventToDelete: {}
     }
   },
   mounted () {
@@ -106,16 +112,18 @@ export default {
       this.event_date = year + '-' + month + '-' + day
       console.log(this.event_date)
     },
-    async deleteEvent (event) {
+    async confirmlDelete () {
       try {
         const params = {
           token: localStorage.getItem('token'),
-          event_id: event.event_id
+          event_id: this.eventToDelete.event_id
         }
         const request = await EventService.delete(params)
         if (request.status === 200) {
           this.alert('positive', 'Evento eliminado correctamente')
           this.getEvents()
+          this.eliminar = false
+          this.eventToDelete = {}
         }
       } catch (error) {
         console.log(error)
@@ -127,6 +135,14 @@ export default {
     },
     viewEvent (event) {
       this.$emit('viewEvent', event)
+    },
+    cancelDelete () {
+      this.eliminar = false
+      this.eventToDelete = {}
+    },
+    deleteEvent (event) {
+      this.eliminar = true
+      this.eventToDelete = event
     }
   }
 }

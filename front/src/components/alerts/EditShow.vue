@@ -2,7 +2,8 @@
     <div class="row edit-show-alert justify-around">
         <!--TITLE-->
         <div class="row col-11 justify-between q-mt-xs">
-            <p class="col-8 alert-title">Editar Show: </p>
+            <p v-if="isEdited" class="col-8 alert-title">Editar Show: </p>
+            <p v-else class="col-8 alert-title">Agregar Show: </p>
             <i @click="cancelEditAddShow" class="col-1 fas fa-times close-alert q-mt-sm" style="color: #52575d; cursor: pointer;"></i>
         </div>
         <!--FORM-->
@@ -51,6 +52,10 @@ export default {
   methods: {
     cancelEditAddShow () {
       this.$emit('cancelEditAddShow')
+      this.show.show_number = ''
+      this.show.show_time = ''
+      this.show.show_place = ''
+      this.show.show_sits = ''
     },
     async addShow () {
       try {
@@ -62,6 +67,7 @@ export default {
         if (request.status === 200) {
           this.alert('positive', 'Show creado correctamente')
           this.$emit('showCreated')
+          this.cancelEditAddShow()
         }
       } catch (error) {
         this.alert('negative', error.response.data.error)

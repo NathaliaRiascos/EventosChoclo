@@ -82,6 +82,16 @@
             label="Crear evento">
           </q-btn>
         </div>
+        <div v-else>
+          <q-btn
+            class="add-event q-mb-sm"
+            type="submit"
+            color="red"
+            text-color="dark"
+            @click="cancel"
+            label="Cancelar">
+            </q-btn>
+        </div>
       </div>
     </div>
   </div>
@@ -126,6 +136,11 @@ export default {
     },
     cancel () {
       this.$emit('cancel')
+      this.event.event_img = ''
+      this.event.event_name = ''
+      this.event.event_price = ''
+      this.event.event_date = ''
+      this.event.event_description = ''
     },
     async editItem () {
       try {

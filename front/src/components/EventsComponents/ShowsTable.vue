@@ -17,9 +17,9 @@
       <div class="tables-container col-11 q-mt-lg">
         <ShowTableInstance
           class="col-11"
-          v-for="show in shows"
-          :key="show.show_id"
-          :show="show"
+          v-for="showt in shows"
+          :key="showt.show_id"
+          :show="showt"
           @editShow="editShow"
           @deleteShow="deleteShow"
         />
@@ -33,12 +33,16 @@
         :show="show"
         :eventId="eventId"/>
     </q-dialog>
+    <q-dialog v-model="eliminar">
+      <delete-alert @cancelDelete="cancelDelete" @confirmlDelete="confirmlDelete" item='Show'></delete-alert>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import ShowTableInstance from './ShowTableInstance'
 import EditShow from '../../components/alerts/EditShow.vue'
+import DeleteAlert from '../../components/alerts/DeleteAlert.vue'
 import ShowService from '../../services/ShowService'
 import { functions } from '../../functions.js'
 
@@ -47,7 +51,8 @@ export default {
   mixins: [functions],
   components: {
     ShowTableInstance,
-    EditShow
+    EditShow,
+    DeleteAlert
   },
   props: {
     eventId: {
@@ -63,6 +68,8 @@ export default {
       isEdited: false,
       shows: [],
       show: {},
+      showToDelete: {},
+      eliminar: false,
       defaultShow: {
         show_number: '',
         show_time: '',
@@ -95,6 +102,28 @@ export default {
       this.AddEditShow = true
       this.isEdited = true
     },
+    async confirmlDelete () {
+      try {
+        const params = {
+          token: localStorage.getItem('token'),
+          show_id: this.showToDelete.show_id
+        }
+        const request = await ShowService.delete(params)
+        if (request.status === 200) {
+          this.alert('positive', 'Show eliminado correctamente')
+          this.getShows()
+          this.showToDelete = {}
+          this.eliminar = false
+        }
+      } catch (error) {
+        console.log(error)
+        this.alert('negative', error.response.error)
+      }
+    },
+    cancelDelete () {
+      this.eliminar = false
+      this.showToDelete = {}
+    },
     async getShows () {
       try {
         this.activateLoading('Cargando')
@@ -112,21 +141,9 @@ export default {
       }
       this.disableLoading()
     },
-    async deleteShow (show) {
-      try {
-        const params = {
-          token: localStorage.getItem('token'),
-          show_id: show.show_id
-        }
-        const request = await ShowService.delete(params)
-        if (request.status === 200) {
-          this.alert('positive', 'Show eliminado correctamente')
-          this.getShows()
-        }
-      } catch (error) {
-        console.log(error)
-        this.alert('negative', error.response.error)
-      }
+    deleteShow (show) {
+      this.eliminar = true
+      this.showToDelete = show
     }
   }
 }

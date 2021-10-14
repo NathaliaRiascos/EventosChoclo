@@ -67,6 +67,7 @@ export default {
       this.event = this.default_event
       this.isEdited = false
       this.update = true
+      this.isView = false
     },
     changeUpdate () {
       this.update = false
