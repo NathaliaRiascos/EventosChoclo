@@ -23,6 +23,7 @@ export default {
   --btn-second: #e5e5e5;
   --color-text-dark: #41444B;
   --color-text-light: #FAFAFA;
+  --input-bg: #F2F2F2;
 }
 body{
   background-color: var(--color-text-light);
@@ -34,9 +35,9 @@ body{
   background-color: var(--principal);
   color: var(--color-text-dark);
 }
-
-.input {
-  background-color: #F2F2F2;
-  height: 42px;
+.q-field__control{
+  background-color: var(--input-bg);
+  margin: 10px 0px;
 }
+
 </style>

@@ -1,60 +1,99 @@
 <template>
   <div class="contenido">
-    <div class="progress">
-      <div class="barras">
-        <div class="barra"></div>
-        <div class="barra-success" :style="'width:'+ stepperProgress"></div>
-      </div>
-      <ul>
-        <li @click="changeClass">
-          <div class="numero">
-            <span>1</span>
-          </div>
-          <q-icon name="fas fa-check"></q-icon>
-        </li>
-        <li>
-          <div class="numero">
-            <span>2</span>
-          </div>
-          <q-icon name="fas fa-check"></q-icon>
-        </li>
-        <li>
-          <div class="numero">
-            <span>3</span>
-          </div>
-          <q-icon name="fas fa-check"></q-icon>
-        </li>
-      </ul>
-    </div>
-    <div>
       <form @submit.prevent="onSubmit">
         <div class="page" v-if="step == 1">
-          <Compra />
+          <p class="text-h6">Encuentro Virtual: Bienvenidos a Bordo - ESCANDINAVIA</p>
+          <q-select
+            rounded
+            outlined
+            :options="boletas"
+            v-model="form.boletas"
+            lazy-rules
+            label="Cantidad de boletas"
+            :rules="[
+              val =>
+                (val !== null && val !== '') ||
+                'Por favor selecciona la cantidad de boletas'
+            ]"
+          />
+          <q-select
+            rounded
+            outlined
+            v-model="form.show"
+            :options="shows"
+            label="Show del evento"
+            lazy-rules
+            :rules="[
+              val =>
+                (val !== null && val !== '') || 'Por favor selecciona un show'
+            ]"
+          />
+          <q-input
+            rounded
+            outlined
+            v-model="form.precio"
+            label="Precio unitario"
+            type="number"
+            prefix="$"
+          >
+            <template v-slot:append> </template>
+          </q-input>
+          <q-input
+            rounded
+            outlined
+            v-model="form.total"
+            label="Total"
+            type="number"
+            prefix="$"
+          >
+            <template v-slot:append> </template>
+          </q-input>
+          <q-input
+            rounded
+            outlined
+            v-model="form.correo"
+            label="Correo"
+            type="text"
+          />
         </div>
         <div class="page" v-if="step == 2">
-          Pagina 2 For each ad campaign that you create, you can control how
-          much you're willing to spend on clicks and conversions, which networks
-          and geographical locations you want your ads to show on, and more.
+          <h5>¡La compra fue exitosa!</h5>
+          <Qr :content='form'/>
         </div>
-        <div class="page" v-if="step == 3">
-          Pagina 3 For each ad campaign that you create, you can control how
-          much you're willing to spend on clicks and conversions, which networks
-          and geographical locations you want your ads to show on, and more.
-        </div>
-        <button @click.prevent.self="step--" v-if="step > 0">Atras</button>
-        <button type="submit" @click="step++" v-if="step < 4">Continuar</button>
+        <button class='btn-submit card-button' type="submit" @click="step++" v-if="step < 2">Comprar</button>
       </form>
     </div>
-  </div>
 </template>
 
 <script>
-import Compra from './formularios/Compra.vue'
+// import Compra from "./formularios/Compra.vue";
+import data from 'src/components/eventosCliente/db.json'
+import Qr from './Qr.vue'
 
 export default {
   data: () => ({
-    step: 1
+    step: 1,
+    shows: null,
+    isSubmit: false,
+    boletas: [],
+    size: 300,
+    form: {
+      boletas: '',
+      show: '',
+      precio: 0,
+      total: 0,
+      correo: ''
+    }
   }),
+  watch: {
+    'form.boletas': function (nuevoValor, valorAnterior) {
+      this.form.total = this.form.precio * nuevoValor + '.000'
+    }
+  },
+  mounted () {
+    this.getEvento()
+    this.setBoletas()
+  },
   computed: {
     stepperProgress () {
       return (100 / 3) * (this.step - 1) + '%'
@@ -65,20 +104,30 @@ export default {
       console.log(e.target)
     },
     onSubmit (e) {
-      console.log('Se hizo submit', e)
+      console.log('Se hizo submit', this.form)
+    },
+    getEvento () {
+      data.forEach(elem => {
+        if (elem.id === this.$route.params.id) {
+          this.shows = elem.shows.map(e => e.hour)
+          this.form.precio = elem.price
+        }
+      })
+    },
+    setBoletas () {
+      this.boletas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     }
   },
-  components: {
-    Compra
-  }
+  components: { Qr }
 }
 </script>
 
 <style scoped>
-
 .contenido {
   margin: 20px 60px;
+  padding: 10px 0px 60px 0;
 }
+
 .progress {
   position: relative;
   height: 40px;
@@ -98,7 +147,6 @@ ul li {
   display: inline-flex;
   justify-content: center;
   text-align: center;
-  /*width: 116px;*/
   width: fit-content;
   margin: 0 40px;
   z-index: 1;
@@ -135,10 +183,11 @@ ul li .numero {
   width: 100%;
 }
 
-.barra{
+.barra {
   margin: 0 auto;
 }
-.barra, .barra-success {
+.barra,
+.barra-success {
   background: #ccc;
   height: 2px;
   left: 0;
@@ -153,33 +202,33 @@ ul li .numero {
   max-width: 411px;
   /*margin: 0 10%;*/
 }
-/*
-ul li .fas::after,
-ul li .numero::after {
-  content: "";
-  background: #ccc;
-  height: 2px;
-  width: 116px;
-  display: block;
-  position: absolute;
-  z-index: -1;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
-*/
+
+.btn-submit {
+  display: block;
+  float: right;
+  margin: 20px 0px;
+}
+
 ul li:hover .fas,
 ul li:hover .numero {
   background-color: var(--principal);
 }
 
-/*
-ul li:hover .fas::after,
-ul li:hover .numero::after {
-  content: "";
-  background: var(--principal);
-  height: 2px;
-  width: 116px;
-  display: block;
-  position: absolute;
-  z-index: -1;
+.card-button{
+  border:none;
+  border-radius: 20px;
+  background: #FDDB3A;
+  color: var(--color-text-dark);
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 159px;;
+  height: 44px;
 }
-*/
+
 </style>
