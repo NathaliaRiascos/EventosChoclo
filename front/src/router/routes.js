@@ -19,10 +19,10 @@ const routes = [
     path: '/admin',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue'), meta: { title: 'Admin' } },
-      { path: '/admin/events', component: () => import('pages/EventsAdmin.vue'), meta: { title: 'Eventos' } },
-      { path: '/admin/reports', component: () => import('pages/ReportsAdmin.vue'), meta: { title: 'Reportes' } },
-      { path: '/admin/users', component: () => import('pages/UsersAdmin.vue'), meta: { title: 'Usuarios' } }
+      { path: '', component: () => import('pages/Index.vue'), meta: { title: 'Admin', requireSession: true } },
+      { path: '/admin/events', component: () => import('pages/EventsAdmin.vue'), meta: { title: 'Eventos', requireSession: true } },
+      { path: '/admin/reports', component: () => import('pages/ReportsAdmin.vue'), meta: { title: 'Reportes', requireSession: true } },
+      { path: '/admin/users', component: () => import('pages/UsersAdmin.vue'), meta: { title: 'Usuarios', requireSession: true } }
     ]
   },
   {
@@ -33,7 +33,13 @@ const routes = [
       { path: '/eventos/:id', name: 'eventos', component: () => import('pages/Evento[id].vue') }
     ]
   },
-
+  {
+    name: 'logout',
+    path: '/logout',
+    meta: {
+      title: 'Logout', requireSession: true
+    }
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

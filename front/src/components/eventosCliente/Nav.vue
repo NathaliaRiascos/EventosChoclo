@@ -10,16 +10,19 @@
               @click.native="detectarClick"
               class="item-menu"
               to="/admin"
+              v-if="user && user.role_id === 2"
             >Admin</router-link>
             <router-link
               @click.native="detectarClick"
               class="item-menu"
               to="/login"
+              v-if="user"
             >Iniciar Sesión</router-link>
             <router-link
               @click.native="detectarClick"
               class="item-menu item-menu_btn"
               to=""
+              v-if="user"
             >Registrarte</router-link>
         </div>
     </nav>
@@ -27,6 +30,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+      user: JSON.parse(localStorage.getItem('user'))
+    }
+  },
   methods: {
     detectarClick (e) {
       const clases = document.querySelectorAll('.active')
