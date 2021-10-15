@@ -35,6 +35,7 @@ import EventService from '../services/EventService'
 // import data from 'src/components/eventosCliente/db.json'
 
 const meses = [
+  { id: '-1', name: 'Todo' },
   { id: '01', name: 'Enero' },
   { id: '02', name: 'Febrero' },
   { id: '03', name: 'Marzo' },
@@ -52,9 +53,9 @@ const meses = [
 export default {
   data: () => ({
     meses,
-    mesName: 'Marzo',
+    mesName: 'Todo',
     eventos: null,
-    mesId: '03'
+    mesId: '-1'
   }),
   components: {
     Meses,
@@ -75,11 +76,20 @@ export default {
         const data = {}
         data.token = localStorage.getItem('token')
         data.event_date = mesId
-        const res = await EventService.getEventsByDate(data)
-        if (res.data.data) {
-          this.eventos = res.data.data
+        if (mesId === '-1') {
+          const res = await EventService.getEvents(data)
+          if (res.data.data) {
+            this.eventos = res.data.data
+          } else {
+            this.eventos = []
+          }
         } else {
-          this.eventos = []
+          const res = await EventService.getEventsByDate(data)
+          if (res.data.data) {
+            this.eventos = res.data.data
+          } else {
+            this.eventos = []
+          }
         }
       } catch (error) {
         console.log(error)

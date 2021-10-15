@@ -219,6 +219,7 @@ export default {
           this.goTo('/')
         }
       } catch (error) {
+        console.log(error)
         this.alert('negative', error.response.data.error)
       }
     },

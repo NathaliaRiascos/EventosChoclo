@@ -10,7 +10,7 @@
       <div v-if="$q.screen.gt.sm" class="row col-12 justify-around table-header q-mt-xl q-py-sm">
         <div class="col-2 table-title-font q-pl-sm">Cédula</div>
         <div class="col-4 table-title-font">Nombre</div>
-        <div class="col-5"></div>
+        <div class="col-2"></div>
       </div>
       <!--TABLE BODY-->
       <div class="row col-12 justify-start table-body q-mt-lg">

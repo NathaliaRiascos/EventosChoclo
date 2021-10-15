@@ -10,11 +10,16 @@
       <div class="row justify-around col-md-5 col-xs-11">
         <!--IMAGE UPLOADER-->
         <div class="event-img row justify-center items-center col-12">
-          <q-file
-            class="custom-file-input justify-center items-center col-4"
-            borderless
-            v-model="event.event_img"
-          ></q-file>
+          <template v-if="isView==true || isEdited==true">
+            <img class="default-event-img col-12" src="~assets/evento.jpg" alt="Imagen de evento" >
+          </template>
+          <template v-else>
+            <q-file
+              class="custom-file-input justify-center items-center col-4"
+              borderless
+              v-model="event.event_img"
+            ></q-file>
+          </template>
         </div>
         <!--NAME INPUT-->
         <q-input
@@ -227,6 +232,10 @@ export default {
 
 .custom-file-input:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.default-event-img {
+  border-radius: 10px;
 }
 /* ADD EVENT BUTTON */
 .add-event {

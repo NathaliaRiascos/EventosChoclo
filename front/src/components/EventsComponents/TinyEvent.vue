@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-around tiny-event-container q-my-md">
     <!--IMAGE-->
-    <q-img style="cursor: pointer;" @click="viewEvent" class="col-3 tiny-event-img"></q-img>
+    <q-img style="cursor: pointer;" @click="viewEvent" src="~assets/evento.jpg" class="col-3 tiny-event-img"></q-img>
     <!--DATA-->
     <div class="col-6">
         <p style="cursor: pointer;" @click="viewEvent" class="tiny-event-title">{{event.event_name}}</p>
@@ -43,6 +43,12 @@ export default {
   },
   mounted () {
     this.setActive()
+    this.event.event_date = moment(new Date(this.event.event_date)).add(1, 'days').format('YYYY-MM-DD')
+  },
+  watch: {
+    event () {
+      this.event.event_date = moment(new Date(this.event.event_date)).add(1, 'days').format('YYYY-MM-DD')
+    }
   },
   methods: {
     editEvent () {
@@ -55,7 +61,7 @@ export default {
       this.$emit('viewEvent', this.event)
     },
     setActive () {
-      if (moment(new Date(this.event.event_date)) > moment()) {
+      if (moment(new Date(this.event.event_date)).add(1, 'days') >= moment()) {
         this.active = true
       } else {
         this.active = false

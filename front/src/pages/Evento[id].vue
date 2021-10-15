@@ -49,6 +49,7 @@ import Show from 'src/components/eventosCliente/Show'
 import EventService from '../services/EventService'
 import SellService from '../services/SellService'
 import { functions } from '../functions.js'
+import moment from 'moment'
 
 export default {
   mixins: [functions],
@@ -70,6 +71,7 @@ export default {
         const res = await EventService.getEventById(data)
         if (res.data.data) {
           this.evento = res.data.data
+          this.evento.event_date = moment(new Date(this.evento.event_date)).format('YYYY-MM-DD')
           this.shows = res.data.data.shows
         } else {
           this.evento = {}

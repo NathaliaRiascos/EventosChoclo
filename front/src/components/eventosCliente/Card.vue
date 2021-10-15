@@ -2,17 +2,21 @@
   <div class="card">
       <img class="card-img" src="~assets/evento.jpg" alt="Imagen de evento" >
       <div class="card-info">
-        <span class="card-fecha">{{`${evento.event_date.split('-')[2]} ${mes}`}}</span>
+        <span class="card-fecha">{{evento.event_date}}</span>
         <p class="card-titulo">{{ evento.event_name }}</p>
       </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   props: {
     evento: Object,
     mes: String
+  },
+  mounted () {
+    this.evento.event_date = moment(new Date(this.evento.event_date)).add(1, 'days').format('YYYY-MM-DD')
   }
 }
 </script>
