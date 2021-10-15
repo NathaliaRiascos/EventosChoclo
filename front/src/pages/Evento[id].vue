@@ -23,7 +23,7 @@
               <h1 class="card-title card-title_evento">{{evento && evento.event_name}}</h1>
               <p class="card-price"> ${{evento && evento.event_price}}</p>
             </div>
-            <button @click="buyTicket" class="card-button">Comprar boleta</button>
+            <button v-if="user" @click="buyTicket" class="card-button">Comprar boleta</button>
           </div>
       </div>
       <div class="card-show" >
