@@ -2,7 +2,7 @@
   <div class="row q-py-md justify-around q-px-sm">
     <!--COMPUTER VIEW OF DATA-->
     <div v-if="$q.screen.gt.sm" class="row col-md-6 col-xs-5">
-      <p id="UTI-p1" class="col-md-4 col-xs-12 instance-font">{{user_identify}}</p>
+      <p id="UTI-p1" class="col-md-4 col-xs-12 instance-font">{{id}}</p>
       <p id="UTI-p2" class="col-md-8 col-xs-12 instance-font">{{name}}</p>
       <div v-if="expand">
         <span>Correo: </span><p class="col-md-4 col-xs-12 instance-font-light"> {{email}}</p>
@@ -11,7 +11,7 @@
     <!--PHONE VIEW OF DATA-->
     <div v-else class="row col-md-6 col-xs-5">
       <p id="UTI-p3" class="col-md-8 col-xs-12 instance-font q-m-none">{{name}}</p>
-      <p id="UTI-p4" class="col-md-4 col-xs-12 instance-font-light">CC. {{user_identify}}</p>
+      <p id="UTI-p4" class="col-md-4 col-xs-12 instance-font-light">CC. {{id}}</p>
       <div v-if="expand">
         <span>Correo: </span><p class="col-md-4 col-xs-12 instance-font-light"> {{email}}</p>
       </div>
