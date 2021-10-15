@@ -16,14 +16,13 @@
               @click.native="detectarClick"
               class="item-menu"
               to="/login"
-              v-if="user"
+              v-if="!user"
             >Iniciar Sesión</router-link>
             <router-link
-              @click.native="detectarClick"
               class="item-menu item-menu_btn"
-              to=""
+              to="/logout"
               v-if="user"
-            >Registrarte</router-link>
+            >Logout</router-link>
         </div>
     </nav>
 </template>
