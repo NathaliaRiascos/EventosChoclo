@@ -71,6 +71,7 @@ exports.register = async function(req, res) {
   const user = new User({
     user_name: req.body.user_name,
     user_email: req.body.user_email,
+    user_identify: req.body.user_identify,
     user_password: password,
     role_id: 1 
   });
