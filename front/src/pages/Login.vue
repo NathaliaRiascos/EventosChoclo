@@ -76,14 +76,6 @@
                 color="grey"
               />
             </q-form>
-            <q-btn
-              type="submit"
-              icon="facebook"
-              class="lg_btn q-mt-sm full-width"
-              label="Iniciar con facebook"
-              color="primary"
-              @click="loginWithFacebook"
-            />
           </q-tab-panel>
           <!--REGISTER-->
           <q-tab-panel class="tab_container" name="sign_up">

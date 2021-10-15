@@ -1,6 +1,6 @@
 <template>
   <q-header class="row justify-between content-center header-client">
-      <p class="logo-text items-center">Eventos choclox</p>
+      <p class="logo-text items-center">Eventos Choclo</p>
       <q-btn
         @click="changeView"
         flat
